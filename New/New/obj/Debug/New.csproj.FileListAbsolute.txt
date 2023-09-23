@@ -1,0 +1,7 @@
+C:\Users\Emilio\Desktop\Itis\C sharp\New\New\bin\Debug\New.exe.config
+C:\Users\Emilio\Desktop\Itis\C sharp\New\New\bin\Debug\New.exe
+C:\Users\Emilio\Desktop\Itis\C sharp\New\New\bin\Debug\New.pdb
+C:\Users\Emilio\Desktop\Itis\C sharp\New\New\obj\Debug\New.csproj.AssemblyReference.cache
+C:\Users\Emilio\Desktop\Itis\C sharp\New\New\obj\Debug\New.csproj.CoreCompileInputs.cache
+C:\Users\Emilio\Desktop\Itis\C sharp\New\New\obj\Debug\New.exe
+C:\Users\Emilio\Desktop\Itis\C sharp\New\New\obj\Debug\New.pdb

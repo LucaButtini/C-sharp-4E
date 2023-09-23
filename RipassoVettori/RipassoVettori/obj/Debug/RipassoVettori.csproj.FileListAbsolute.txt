@@ -1,0 +1,7 @@
+C:\Users\Emilio\Desktop\Itis\C-sharp\RipassoVettori\RipassoVettori\bin\Debug\RipassoVettori.exe.config
+C:\Users\Emilio\Desktop\Itis\C-sharp\RipassoVettori\RipassoVettori\bin\Debug\RipassoVettori.exe
+C:\Users\Emilio\Desktop\Itis\C-sharp\RipassoVettori\RipassoVettori\bin\Debug\RipassoVettori.pdb
+C:\Users\Emilio\Desktop\Itis\C-sharp\RipassoVettori\RipassoVettori\obj\Debug\RipassoVettori.csproj.AssemblyReference.cache
+C:\Users\Emilio\Desktop\Itis\C-sharp\RipassoVettori\RipassoVettori\obj\Debug\RipassoVettori.csproj.CoreCompileInputs.cache
+C:\Users\Emilio\Desktop\Itis\C-sharp\RipassoVettori\RipassoVettori\obj\Debug\RipassoVettori.exe
+C:\Users\Emilio\Desktop\Itis\C-sharp\RipassoVettori\RipassoVettori\obj\Debug\RipassoVettori.pdb

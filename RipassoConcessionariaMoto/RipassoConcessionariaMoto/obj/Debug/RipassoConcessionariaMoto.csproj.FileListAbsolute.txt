@@ -1,0 +1,7 @@
+C:\Users\Emilio\Desktop\Itis\C sharp\RipassoConcessionariaMoto\RipassoConcessionariaMoto\bin\Debug\RipassoConcessionariaMoto.exe.config
+C:\Users\Emilio\Desktop\Itis\C sharp\RipassoConcessionariaMoto\RipassoConcessionariaMoto\bin\Debug\RipassoConcessionariaMoto.exe
+C:\Users\Emilio\Desktop\Itis\C sharp\RipassoConcessionariaMoto\RipassoConcessionariaMoto\bin\Debug\RipassoConcessionariaMoto.pdb
+C:\Users\Emilio\Desktop\Itis\C sharp\RipassoConcessionariaMoto\RipassoConcessionariaMoto\obj\Debug\RipassoConcessionariaMoto.csproj.AssemblyReference.cache
+C:\Users\Emilio\Desktop\Itis\C sharp\RipassoConcessionariaMoto\RipassoConcessionariaMoto\obj\Debug\RipassoConcessionariaMoto.csproj.CoreCompileInputs.cache
+C:\Users\Emilio\Desktop\Itis\C sharp\RipassoConcessionariaMoto\RipassoConcessionariaMoto\obj\Debug\RipassoConcessionariaMoto.exe
+C:\Users\Emilio\Desktop\Itis\C sharp\RipassoConcessionariaMoto\RipassoConcessionariaMoto\obj\Debug\RipassoConcessionariaMoto.pdb
