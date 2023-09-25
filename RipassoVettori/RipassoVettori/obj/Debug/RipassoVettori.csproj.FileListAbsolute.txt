@@ -5,3 +5,17 @@ C:\Users\Emilio\Desktop\Itis\C-sharp\RipassoVettori\RipassoVettori\obj\Debug\Rip
 C:\Users\Emilio\Desktop\Itis\C-sharp\RipassoVettori\RipassoVettori\obj\Debug\RipassoVettori.csproj.CoreCompileInputs.cache
 C:\Users\Emilio\Desktop\Itis\C-sharp\RipassoVettori\RipassoVettori\obj\Debug\RipassoVettori.exe
 C:\Users\Emilio\Desktop\Itis\C-sharp\RipassoVettori\RipassoVettori\obj\Debug\RipassoVettori.pdb
+E:\informatica\4E\Buttini Luca\RipassoVettori\RipassoVettori\obj\Debug\RipassoVettori.csproj.AssemblyReference.cache
+E:\informatica\4E\Buttini Luca\RipassoVettori\RipassoVettori\obj\Debug\RipassoVettori.csproj.CoreCompileInputs.cache
+E:\informatica\4E\Buttini Luca\RipassoVettori\RipassoVettori\obj\Debug\RipassoVettori.exe
+E:\informatica\4E\Buttini Luca\RipassoVettori\RipassoVettori\obj\Debug\RipassoVettori.pdb
+E:\informatica\4E\Buttini Luca\RipassoVettori\RipassoVettori\bin\Debug\RipassoVettori.exe.config
+E:\informatica\4E\Buttini Luca\RipassoVettori\RipassoVettori\bin\Debug\RipassoVettori.exe
+E:\informatica\4E\Buttini Luca\RipassoVettori\RipassoVettori\bin\Debug\RipassoVettori.pdb
+C:\Users\Emilio\Desktop\Itis\C#\RipassoVettori\RipassoVettori\obj\Debug\RipassoVettori.csproj.AssemblyReference.cache
+C:\Users\Emilio\Desktop\Itis\C#\RipassoVettori\RipassoVettori\obj\Debug\RipassoVettori.csproj.CoreCompileInputs.cache
+C:\Users\Emilio\Desktop\Itis\C#\RipassoVettori\RipassoVettori\obj\Debug\RipassoVettori.pdb
+C:\Users\Emilio\Desktop\Itis\C#\RipassoVettori\RipassoVettori\bin\Debug\RipassoVettori.exe.config
+C:\Users\Emilio\Desktop\Itis\C#\RipassoVettori\RipassoVettori\bin\Debug\RipassoVettori.exe
+C:\Users\Emilio\Desktop\Itis\C#\RipassoVettori\RipassoVettori\bin\Debug\RipassoVettori.pdb
+C:\Users\Emilio\Desktop\Itis\C#\RipassoVettori\RipassoVettori\obj\Debug\RipassoVettori.exe

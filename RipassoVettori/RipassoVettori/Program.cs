@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RipassoVettori
 {
@@ -11,10 +7,10 @@ namespace RipassoVettori
         static void Main(string[] args)
         {
             int dimensione = 10;
-            int estremo = 100, aumenta = 10, n = 0, posizione = 0;
+            int estremo = 100, aumenta = 10, n = 0, posizione = -1, ultimoElemento = -1, index;
             int[] vettoreMain;
             bool booleana = false;
-            CreaVettore(out vettoreMain, dimensione, estremo);
+            CreaVettore(out vettoreMain, dimensione, estremo, ref ultimoElemento);
 
             Visualizza(vettoreMain);
 
@@ -25,28 +21,44 @@ namespace RipassoVettori
             Console.WriteLine("-------------------");
 
             VisualizzaValori(vettoreMain, dimensione);
+            
 
             EspandiVettore(ref vettoreMain, aumenta, estremo);
-
             Visualizza(vettoreMain);
+
+            Console.WriteLine("Inserisci l'elemento da cercare");
+            n = Convert.ToInt32(Console.ReadLine());
+            
             Console.WriteLine();
             Console.WriteLine();
             Console.WriteLine();
             Console.WriteLine();
+
             TrovaElemento(vettoreMain, n, ref booleana);//primo metodo trova
             Console.WriteLine("=============================");
             TrovaElemento2(vettoreMain, n, ref posizione); //secondo metodo trova
             Console.WriteLine("=============================");
-            
+            Console.WriteLine(TrovaElemento3(vettoreMain, n, posizione));
+            Console.WriteLine("=============================");
+            Console.WriteLine(TrovaElemento4(vettoreMain, n));
+            Console.WriteLine();
+            Console.WriteLine();
+            //Console.WriteLine("Inserisci indice posizione");
+            //index = Convert.ToInt32(Console.ReadLine());
+            //Console.WriteLine(Eliminazione(vettoreMain, index, ultimoElemento)); 
+            Eliminazione(ref vettoreMain, n);
+            Console.WriteLine("Il vettore con elemento cancellato");
+            VisualizzaValori(vettoreMain, vettoreMain.Length);
             Console.ReadLine();
         }
-        static void CreaVettore(out int[] vettore, int dimensione, int estremo)
+        static void CreaVettore(out int[] vettore, int dimensione, int estremo, ref int ultimoElemento)
         {
             vettore = new int[dimensione];
             Random valori = new Random();
 
             for (int i = 0; i < dimensione; i++)
             {
+                ultimoElemento++;
                 vettore[i] = valori.Next(1, estremo + 1);
             }
         }
@@ -87,7 +99,6 @@ namespace RipassoVettori
 
                 vettoreEsp[i] = valori.Next(1, estremo + 1);
             }
-
             vettoreVecchio = vettoreEsp;
         }
 
@@ -97,8 +108,7 @@ namespace RipassoVettori
 
         static void TrovaElemento(int[] vettoreDati, int elemento, ref bool trovato)
         {
-            Console.WriteLine("Inserisci l'elemento da cercare");
-            elemento = Convert.ToInt32(Console.ReadLine());
+
 
             trovato = false;  // inizializzo a false
 
@@ -114,10 +124,8 @@ namespace RipassoVettori
         }//ritorna trovato e posizione
 
 
-        static void TrovaElemento2(int[] vettoreDati, int elemento, ref int pos) //non mi funziona se è false
+        static void TrovaElemento2(int[] vettoreDati, int elemento, ref int pos)
         {
-            Console.WriteLine("Inserisci l'elemento da cercare");
-            elemento = Convert.ToInt32(Console.ReadLine());
 
             for (int i = 0; i < vettoreDati.Length; i++)
             {
@@ -135,17 +143,79 @@ namespace RipassoVettori
             {
                 Console.WriteLine("Non presente");
             }
-            
+
         }//posizione valida? trovato?
 
 
 
-        //static bool TrovaElemento3(int[] vettoreDati, int elemento, int posizione)
-        //{
+        static bool TrovaElemento3(int[] vettoreDati, int elemento, int posizione)
+        {
+            bool trovato = false;
 
-        //}//trovato ritornato come bool
-        //static int TrovaElemento4(int[] vettoreDati, int elemento)
+            for (int i = 0; i < vettoreDati.Length; i++)
+            {
+                if (vettoreDati[i] == elemento)
+                {
+                    trovato = true;
+                }
+
+            }
+            return trovato;
+        }//trovato ritornato come bool
+        static int TrovaElemento4(int[] vettoreDati, int elemento)
+        {
+
+            for (int i = 0; i < vettoreDati.Length; i++)
+            {
+                if (vettoreDati[i] == elemento)
+                {
+                    return i;
+                }
+            }
+            return -1;
+        }//valore ritornato indica se l'elemento è presente o no (assieme alla posizione)
+
+
+        //static void Eliminazione(int[] vettoreDati, int index, ref int ultimoElemento)//da sistemare
         //{
-        //}//valore ritornato indica se l'elemento è presente o no (assieme alla posizione)
+        //    if (index == vettoreDati.Length - 1 || index == ultimoElemento)
+        //    {
+        //        ultimoElemento--;
+        //        return;
+        //    }
+        //    else
+        //    {
+        //        for (int i = index; i < ultimoElemento; i++)
+        //        {
+        //            vettoreDati[i] = vettoreDati[i + 1];
+        //        }
+        //        ultimoElemento--;
+        //    }
+        //}
+        static void Eliminazione(ref int[] array, int elemento)
+        {
+
+            int j, presente = 0, k=0;
+            j = TrovaElemento4(array, elemento);//invoco per trovare la posizione
+            if (j != -1)
+            {
+                for (int i = j; i < array.Length; i++)
+                {
+                    if (array[i] == elemento)//mi conto gli elementi dell'array per creare quello nuovo 
+                    {
+                        presente++; 
+                    }
+                }
+                int[] newArray = new int[array.Length - presente];//creo il nuovo array togliendo presente dalla Length
+                foreach(int numero in array)
+                {
+                    if(numero!=elemento)
+                    {
+                        newArray[k++] = numero; //ricopio tutti quelli non uguali all'elemento. Incremento k.
+                    }
+                }
+                array= newArray;//assegno indirizzo memoria di newArray ad array
+            }
+        }
     }
 }
