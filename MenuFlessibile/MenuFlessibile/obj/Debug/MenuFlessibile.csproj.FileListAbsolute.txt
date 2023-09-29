@@ -1,0 +1,7 @@
+C:\Users\Emilio\Desktop\Itis\C#\MenuFlessibile\MenuFlessibile\obj\Debug\MenuFlessibile.csproj.AssemblyReference.cache
+C:\Users\Emilio\Desktop\Itis\C#\MenuFlessibile\MenuFlessibile\obj\Debug\MenuFlessibile.csproj.CoreCompileInputs.cache
+C:\Users\Emilio\Desktop\Itis\C#\MenuFlessibile\MenuFlessibile\bin\Debug\MenuFlessibile.exe.config
+C:\Users\Emilio\Desktop\Itis\C#\MenuFlessibile\MenuFlessibile\bin\Debug\MenuFlessibile.exe
+C:\Users\Emilio\Desktop\Itis\C#\MenuFlessibile\MenuFlessibile\bin\Debug\MenuFlessibile.pdb
+C:\Users\Emilio\Desktop\Itis\C#\MenuFlessibile\MenuFlessibile\obj\Debug\MenuFlessibile.exe
+C:\Users\Emilio\Desktop\Itis\C#\MenuFlessibile\MenuFlessibile\obj\Debug\MenuFlessibile.pdb
