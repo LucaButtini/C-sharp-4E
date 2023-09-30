@@ -13,12 +13,9 @@ namespace MenuFlessibile
         {
             int scelta = 0;
             string[] opzioni = { "Inserimento", "Ricerca", "Visualizza", "Modifica", "Elimina", "Exit" };
-            do
-            {
-                Console.WriteLine("====================");
-                Menu(opzioni, out scelta);
-                Console.WriteLine("====================");
-            } while (scelta != 6);
+            Console.WriteLine("====================");
+            Menu(opzioni, out scelta);
+            Console.WriteLine("====================");
             switch (scelta)
             {
                 case 1:
