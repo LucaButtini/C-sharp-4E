@@ -1,0 +1,7 @@
+C:\Users\Emilio\Desktop\Itis\C#\Conversioni\Conversioni\bin\Debug\Conversioni.exe.config
+C:\Users\Emilio\Desktop\Itis\C#\Conversioni\Conversioni\bin\Debug\Conversioni.exe
+C:\Users\Emilio\Desktop\Itis\C#\Conversioni\Conversioni\bin\Debug\Conversioni.pdb
+C:\Users\Emilio\Desktop\Itis\C#\Conversioni\Conversioni\obj\Debug\Conversioni.csproj.AssemblyReference.cache
+C:\Users\Emilio\Desktop\Itis\C#\Conversioni\Conversioni\obj\Debug\Conversioni.csproj.CoreCompileInputs.cache
+C:\Users\Emilio\Desktop\Itis\C#\Conversioni\Conversioni\obj\Debug\Conversioni.exe
+C:\Users\Emilio\Desktop\Itis\C#\Conversioni\Conversioni\obj\Debug\Conversioni.pdb
