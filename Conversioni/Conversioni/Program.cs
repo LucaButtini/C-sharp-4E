@@ -20,10 +20,12 @@ namespace Conversioni
             }
             Console.WriteLine();
             Console.WriteLine(ConvertDpToIntero(dp));
+            Console.WriteLine();
+            Console.WriteLine(ConvertBinToIntero(bn));
             Console.ReadLine();
         }
 
-        static bool[] ConvertDpToBin(int[] dp)
+        static bool[] ConvertDpToBin(int[] dp)  //METODO 1
         {
             bool[] bn = new bool[32];
             int j = bn.Length - 1;  // Inizializza j all'ultimo indice dell'array bn
@@ -41,7 +43,7 @@ namespace Conversioni
             return bn;
         }
 
-        static int ConvertDpToIntero(int[] dp)
+        static int ConvertDpToIntero(int[] dp) //METODO 2
         {
             int decimale = 0;
             int j = 3;
@@ -50,6 +52,22 @@ namespace Conversioni
                 decimale += dp[i] * (int)Math.Pow(256, j--);
             }
             return decimale;
+        }
+
+        static int ConvertBinToIntero(bool[] bn)  //METODO 3
+        {
+            int intero = 0;
+            int j = bn.Length - 1;
+
+            for (int i = 0; i < bn.Length; i++)
+            {
+                if (bn[i])
+                {
+                    intero += (int)Math.Pow(2, j);
+                }
+                j--;
+            }
+            return intero;
         }
 
     }
