@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.Serialization.Formatters;
 
 namespace Conversioni
 {
@@ -17,6 +18,8 @@ namespace Conversioni
             {
                 Console.Write(Convert.ToInt32(bn[i]));
             }
+            Console.WriteLine();
+            Console.WriteLine(ConvertDpToIntero(dp));
             Console.ReadLine();
         }
 
@@ -38,10 +41,17 @@ namespace Conversioni
             return bn;
         }
 
-        int ConvertDpToIntero(int[] dp)
+        static int ConvertDpToIntero(int[] dp)
         {
-
+            int decimale = 0;
+            int j = 3;
+            for (int i = 0; i < dp.Length; i++)
+            {
+                decimale += dp[i] * (int)Math.Pow(256, j--);
+            }
+            return decimale;
         }
+
     }
 }
 
