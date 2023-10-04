@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.Remoting.Messaging;
 using System.Runtime.Serialization.Formatters;
 
 namespace Conversioni
@@ -21,6 +22,8 @@ namespace Conversioni
             }
             Console.WriteLine();
             Console.WriteLine(ConvertDpToIntero(dp));
+            Console.WriteLine();
+            Console.WriteLine(ConvertBinToIntero(bn));
             Console.WriteLine();
             Console.WriteLine(ConvertBinToIntero(bn));
             Console.ReadLine();
@@ -70,10 +73,17 @@ namespace Conversioni
             }
             return intero;
         }
-        //static int ConvertToBinToDec(bool[] bn) //METODO 4
-        //{
+        static int ConvertBinToDec(bool[] bn) //METODO 4
+        {
+            int d = 0;
 
-        //}
+            for (int i = 0; i < bn.Length; i++)
+            {
+                if (bn[i])
+                    d = (int)Math.Pow(10, 31 - i);
+            }
+            return d;
+        }
 
     }
 }
