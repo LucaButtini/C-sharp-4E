@@ -14,6 +14,7 @@ namespace Conversioni
                 dp[i] = Convert.ToInt32(Console.ReadLine());
             }
             bool[] bn = ConvertDpToBin(dp);
+
             for (int i = 0; i < bn.Length; i++)
             {
                 Console.Write(Convert.ToInt32(bn[i]));
@@ -33,12 +34,12 @@ namespace Conversioni
             for (int i = 0; i < dp.Length; i++)
             {
                 int num = dp[i];  // Salva il numero corrente
-                do
+                for (int y = 0; y < 8; y++)
                 {
                     bn[j] = num % 2 == 1;  // Inserisci il bit corretto in ordine inverso
                     num = num / 2;
                     j--;
-                } while (num > 0 && j >= 0);
+                }
             }
             return bn;
         }
@@ -69,6 +70,10 @@ namespace Conversioni
             }
             return intero;
         }
+        //static int ConvertToBinToDec(bool[] bn) //METODO 4
+        //{
+
+        //}
 
     }
 }
