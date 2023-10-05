@@ -25,11 +25,11 @@ namespace Conversioni
             Console.WriteLine();
             Console.WriteLine(ConvertBinToIntero(bn));
             Console.WriteLine();
-            Console.WriteLine(ConvertBinToIntero(bn));
+            Console.WriteLine(ConvertBinToDec(bn));
             Console.ReadLine();
         }
 
-        static bool[] ConvertDpToBin(int[] dp)  //METODO 1
+        static bool[] ConvertDpToBin(int[] dp)  //METODO 
         {
             bool[] bn = new bool[32];
             int j = bn.Length - 1;  // Inizializza j all'ultimo indice dell'array bn
@@ -73,14 +73,18 @@ namespace Conversioni
             }
             return intero;
         }
-        static int ConvertBinToDec(bool[] bn) //METODO 4
+        static int ConvertBinToDec(bool[] bn) // Metodo per convertire il binario in decimale
         {
             int d = 0;
-
-            for (int i = 0; i < bn.Length; i++)
+            for (int i = bn.Length - 1; i >= 0; i--) //itero al contrario fino a zero
             {
                 if (bn[i])
-                    d = (int)Math.Pow(10, 31 - i);
+                {
+                    //Se il bit è 1, viene aggiunto al valore decimale la potenza di 2 corrispondente a quella posizione
+                    //nell'array binario l'esponente è calcolato in base all'indice dell'array binario(bn.Length -1 - i)
+                    //tenendo conto dell'ordine inverso dei bit.
+                    d += (int)Math.Pow(2, bn.Length - 1 - i); 
+                }
             }
             return d;
         }
