@@ -1,0 +1,7 @@
+E:\informatica\4E\Buttini Luca\ConversioneIpInClasse\bin\Debug\ConversioneIpInClasse.exe.config
+E:\informatica\4E\Buttini Luca\ConversioneIpInClasse\bin\Debug\ConversioneIpInClasse.exe
+E:\informatica\4E\Buttini Luca\ConversioneIpInClasse\bin\Debug\ConversioneIpInClasse.pdb
+E:\informatica\4E\Buttini Luca\ConversioneIpInClasse\obj\Debug\ConversioneIpInClasse.csproj.AssemblyReference.cache
+E:\informatica\4E\Buttini Luca\ConversioneIpInClasse\obj\Debug\ConversioneIpInClasse.csproj.CoreCompileInputs.cache
+E:\informatica\4E\Buttini Luca\ConversioneIpInClasse\obj\Debug\ConversioneIpInClasse.exe
+E:\informatica\4E\Buttini Luca\ConversioneIpInClasse\obj\Debug\ConversioneIpInClasse.pdb
