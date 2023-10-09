@@ -1,0 +1,7 @@
+C:\Users\Emilio\Desktop\Itis\C#\AnagraficaMenu\AnagraficaMenu\bin\Debug\AnagraficaMenu.exe.config
+C:\Users\Emilio\Desktop\Itis\C#\AnagraficaMenu\AnagraficaMenu\bin\Debug\AnagraficaMenu.exe
+C:\Users\Emilio\Desktop\Itis\C#\AnagraficaMenu\AnagraficaMenu\bin\Debug\AnagraficaMenu.pdb
+C:\Users\Emilio\Desktop\Itis\C#\AnagraficaMenu\AnagraficaMenu\obj\Debug\AnagraficaMenu.csproj.AssemblyReference.cache
+C:\Users\Emilio\Desktop\Itis\C#\AnagraficaMenu\AnagraficaMenu\obj\Debug\AnagraficaMenu.csproj.CoreCompileInputs.cache
+C:\Users\Emilio\Desktop\Itis\C#\AnagraficaMenu\AnagraficaMenu\obj\Debug\AnagraficaMenu.exe
+C:\Users\Emilio\Desktop\Itis\C#\AnagraficaMenu\AnagraficaMenu\obj\Debug\AnagraficaMenu.pdb
