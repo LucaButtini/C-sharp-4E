@@ -36,18 +36,19 @@ namespace AnagraficaMenu
     {
         static void Main(string[] args)
         {
-            string[] opzioni = { "Inserimento", "Visualizza", "Età", "Esci dal Menu" };
-            int grandezza = 3;
+            string[] opzioni1 = { "Inserimento", "Visualizza", "Età", "Esci dal Menu" };
+            string[] opzioni2 = { "Persona", "Archivio" };
+            int grandezza = 2;
             Persona[] persone = new Persona[grandezza];
-            int scelta;
+            int scelta1, scelta2;
             string cf;
             do
             {
-                StampaMenu(opzioni);
+                StampaMenu(opzioni1);
                 Console.WriteLine("Che scelta vuoi fare?");
-                int.TryParse(Console.ReadLine(), out scelta);
+                int.TryParse(Console.ReadLine(), out scelta1);
                 //switch case con le opzioni 
-                switch (scelta)
+                switch (scelta1)
                 {
                     case 1:
                         Console.WriteLine();
@@ -59,16 +60,32 @@ namespace AnagraficaMenu
                     case 2:
                         Console.WriteLine();
                         Console.WriteLine("=====ANAGRAFICA=====");
-                        Stampa(persone);
+                        StampaPersone(persone);
                         break;
 
                     case 3:
                         Console.WriteLine("=====RICERCA ETA'=====");
-                        Console.WriteLine("Inserisci il codice fiscale della persona la quale si desidera sapere l'età");
-                        cf = Console.ReadLine();
-                        CalcolaEta(persone, cf);
+                        StampaMenu(opzioni2);
+                        Console.WriteLine("Inserisci la scelta");
+                        int.TryParse(Console.ReadLine(), out scelta2);
+                        while (scelta2 < 1 || scelta2 > opzioni2.Length)
+                        {
+                            Console.WriteLine("Inserisci un opzione valida");
+                            int.TryParse(Console.ReadLine(), out scelta2);
+                        }
+                        switch (scelta2)
+                        {
+                            case 1:
+                                Console.WriteLine("Inserisci il codice fiscale della persona la quale si desidera sapere l'età");
+                                cf = Console.ReadLine();
+                                Persona(persone, cf);
+                                break;
+                            case 2:
+                                Console.WriteLine("===ARCHIVIO===");
+                                Archivio(persone);
+                                break;
+                        }
                         break;
-
                     case 4:
                         Console.WriteLine("Uscita dal Menu");
                         break;
@@ -78,14 +95,14 @@ namespace AnagraficaMenu
                         break;
                 }
 
-                if (scelta != 4)
+                if (scelta1 != 4)
                 {
                     Console.WriteLine("Premi Invio per tornare al Menu.");
                     Console.ReadLine();
                     Console.Clear();
                 }
 
-            } while (scelta != 4);
+            } while (scelta1 != 4);
         }
 
         static void LeggiPersona(Persona[] p)
@@ -117,10 +134,10 @@ namespace AnagraficaMenu
                 p[i].Stato = (StatoCivile)MenuSceltaEnum(typeof(StatoCivile));
             }
         }
-        static int MenuSceltaEnum(Type enumType)
+        static int MenuSceltaEnum(Type enu)
         {
             //metodo che mi ritorna la scelta fatta ideale per entrambi i menu di Genere e StatoCivile
-            string[] stringheEnum = Enum.GetNames(enumType);
+            string[] stringheEnum = Enum.GetNames(enu);
             for (int i = 0; i < stringheEnum.Length; i++)
             {
                 Console.WriteLine($"[{i + 1}] {stringheEnum[i]}");
@@ -129,7 +146,7 @@ namespace AnagraficaMenu
             Console.WriteLine("Che scelta vuoi fare?");
             while (!int.TryParse(Console.ReadLine(), out scelta) || scelta < 1 || scelta > stringheEnum.Length)
             {
-                Console.WriteLine("Inserisci un opzione valida.");
+                Console.WriteLine("Inserisci un opzione valida");
             }
 
             return scelta;
@@ -147,7 +164,7 @@ namespace AnagraficaMenu
         //---------------------------------------------------------------
         //---------------------------------------------------------------
         //CALCOLO ETA'
-        static void CalcolaEta(Persona[] p, string cf)
+        static void Persona(Persona[] p, string cf)
         {
             DateTime dataCorrente = DateTime.Now;
             int eta = -1;  // Inizializza l'età a -1 come valore predefinito
@@ -158,14 +175,12 @@ namespace AnagraficaMenu
                 {
                     eta = CalcolaAnni(persona.Nascita, dataCorrente);
                     Console.WriteLine($"Persona: {persona.Nome} {persona.Cognome}, Età: {eta}");
-                    return;
+                    //return;
                 }
             }
-
             if (eta == -1) // Nessuna persona trovata con il codice fiscale cercato
-                Console.WriteLine("Nessuna persona trovata con il codice fiscale cercato.");
+                Console.WriteLine("Nessuna persona trovata con il codice fiscale cercato");
         }
-
 
         static int CalcolaAnni(DateTime dataNascita, DateTime dataCorrente)
         {
@@ -178,13 +193,26 @@ namespace AnagraficaMenu
         }
         //---------------------------------------------------------------
         //---------------------------------------------------------------
+
+        static void Archivio(Persona[] p)
+        {
+            int eta = 0;
+            DateTime dataCorrente = DateTime.Now;
+            foreach (var persona in p)
+            {
+                eta = CalcolaAnni(persona.Nascita, dataCorrente); // Correzione qui
+                Console.WriteLine($"Persona: {persona.Nome} {persona.Cognome}, Età: {eta}");
+            }
+        }
+
+
         static void StampaMenu(string[] menu)
         {
             for (int i = 0; i < menu.Length; i++)
                 Console.WriteLine($"[{i + 1}] {menu[i]}");
         }
 
-        static void Stampa(Persona[] p)
+        static void StampaPersone(Persona[] p)
         {
             foreach (Persona persona in p)
             {
