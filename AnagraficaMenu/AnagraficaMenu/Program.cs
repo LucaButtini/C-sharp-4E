@@ -38,7 +38,7 @@ namespace AnagraficaMenu
         {
             string[] opzioni1 = { "Inserimento", "Visualizza", "Età", "Esci dal Menu" };
             string[] opzioni2 = { "Persona", "Archivio" };
-            int grandezza = 2;
+            int grandezza = 3;
             Persona[] persone = new Persona[grandezza];
             int scelta1, scelta2;
             string cf;
