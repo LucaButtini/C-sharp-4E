@@ -101,7 +101,6 @@ namespace AnagraficaMenu
                     Console.ReadLine();
                     Console.Clear();
                 }
-
             } while (scelta1 != 4);
         }
 
@@ -120,35 +119,75 @@ namespace AnagraficaMenu
                 p[i].Nascita = DateTime.Parse(Console.ReadLine());
                 Console.WriteLine("Inserisci id: ");
                 string id = Console.ReadLine();
-                while (CheckId(id, p))//invoco il metodo checkid per controllare che non ci siano duplicatiz
+                while (CheckId(id, p))//invoco il metodo checkid per controllare che non ci siano duplicati
                 {
                     Console.WriteLine("Codice fiscale già presente. Reinserisci.");
                     id = Console.ReadLine();
                 }
                 p[i].Id = id;
-                //inserimento enumeratori con il menu
                 Console.WriteLine("Inserisci genere");
-                //utilizzo typeof per accedere alle informazioni dell'enum
-                p[i].Genere = (Sesso)MenuSceltaEnum(typeof(Sesso));
+                switch (MenuGenere(p))
+                {
+                    case 1:
+                        p[i].Genere = Sesso.Maschio;
+                        break;
+                    case 2:
+                        p[i].Genere = Sesso.Femmina;
+                        break;
+                }
                 Console.WriteLine("Inserisci stato civile");
-                p[i].Stato = (StatoCivile)MenuSceltaEnum(typeof(StatoCivile));
+                switch (MenuStatoCivile(p))
+                {
+                    case 1:
+                        p[i].Stato = StatoCivile.Celibe;
+                        break;
+                    case 2:
+                        p[i].Stato = StatoCivile.Nubile;
+                        break;
+                    case 3:
+                        p[i].Stato = StatoCivile.Coniugato;
+                        break;
+                    case 4:
+                        p[i].Stato = StatoCivile.Vedovo;
+                        break;
+                    case 5:
+                        p[i].Stato = StatoCivile.Separato;
+                        break;
+                }
             }
         }
-        static int MenuSceltaEnum(Type enu)
+        static int MenuGenere(Persona[] p)
         {
-            //metodo che mi ritorna la scelta fatta ideale per entrambi i menu di Genere e StatoCivile
-            string[] stringheEnum = Enum.GetNames(enu);
-            for (int i = 0; i < stringheEnum.Length; i++)
+            int scelta = 0;
+            string[] genere = Enum.GetNames(typeof(Sesso));
+            for (int i = 0; i < genere.Length; i++)
             {
-                Console.WriteLine($"[{i + 1}] {stringheEnum[i]}");
+                Console.WriteLine($"[{i + 1}] {genere[i]}");
             }
-            int scelta;
-            Console.WriteLine("Che scelta vuoi fare?");
-            while (!int.TryParse(Console.ReadLine(), out scelta) || scelta < 1 || scelta > stringheEnum.Length)
+            Console.WriteLine("Che scelta vuoi fare");
+            int.TryParse(Console.ReadLine(), out scelta);
+            while (scelta < 1 || scelta > genere.Length)
             {
                 Console.WriteLine("Inserisci un opzione valida");
+                int.TryParse(Console.ReadLine(), out scelta);
             }
-
+            return scelta;
+        }
+        static int MenuStatoCivile(Persona[] p)
+        {
+            int scelta = 0;
+            string[] stato = Enum.GetNames(typeof(StatoCivile));
+            for (int i = 0; i < stato.Length; i++)
+            {
+                Console.WriteLine($"[{i + 1}] {stato[i]}");
+            }
+            Console.WriteLine("Che scelta vuoi fare");
+            int.TryParse(Console.ReadLine(), out scelta);
+            while (scelta < 1 || scelta > stato.Length)
+            {
+                Console.WriteLine("Inserisci un opzione valida");
+                int.TryParse(Console.ReadLine(), out scelta);
+            }
             return scelta;
         }
 
@@ -181,7 +220,6 @@ namespace AnagraficaMenu
             if (eta == -1) // Nessuna persona trovata con il codice fiscale cercato
                 Console.WriteLine("Nessuna persona trovata con il codice fiscale cercato");
         }
-
         static int CalcolaAnni(DateTime dataNascita, DateTime dataCorrente)
         {
             int eta = dataCorrente.Year - dataNascita.Year;//confronto gli anni 
@@ -204,8 +242,6 @@ namespace AnagraficaMenu
                 Console.WriteLine($"Persona: {persona.Nome} {persona.Cognome}, Età: {eta}");
             }
         }
-
-
         static void StampaMenu(string[] menu)
         {
             for (int i = 0; i < menu.Length; i++)
