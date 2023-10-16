@@ -1,0 +1,14 @@
+D:\4E\Buttini Luca\ListAnagrafica\ListAnagrafica\bin\Debug\ListAnagrafica.exe.config
+D:\4E\Buttini Luca\ListAnagrafica\ListAnagrafica\bin\Debug\ListAnagrafica.exe
+D:\4E\Buttini Luca\ListAnagrafica\ListAnagrafica\bin\Debug\ListAnagrafica.pdb
+D:\4E\Buttini Luca\ListAnagrafica\ListAnagrafica\obj\Debug\ListAnagrafica.csproj.AssemblyReference.cache
+D:\4E\Buttini Luca\ListAnagrafica\ListAnagrafica\obj\Debug\ListAnagrafica.csproj.CoreCompileInputs.cache
+D:\4E\Buttini Luca\ListAnagrafica\ListAnagrafica\obj\Debug\ListAnagrafica.exe
+D:\4E\Buttini Luca\ListAnagrafica\ListAnagrafica\obj\Debug\ListAnagrafica.pdb
+C:\Users\Emilio\Desktop\Itis\C#\ListAnagrafica\ListAnagrafica\bin\Debug\ListAnagrafica.exe.config
+C:\Users\Emilio\Desktop\Itis\C#\ListAnagrafica\ListAnagrafica\bin\Debug\ListAnagrafica.exe
+C:\Users\Emilio\Desktop\Itis\C#\ListAnagrafica\ListAnagrafica\bin\Debug\ListAnagrafica.pdb
+C:\Users\Emilio\Desktop\Itis\C#\ListAnagrafica\ListAnagrafica\obj\Debug\ListAnagrafica.csproj.AssemblyReference.cache
+C:\Users\Emilio\Desktop\Itis\C#\ListAnagrafica\ListAnagrafica\obj\Debug\ListAnagrafica.csproj.CoreCompileInputs.cache
+C:\Users\Emilio\Desktop\Itis\C#\ListAnagrafica\ListAnagrafica\obj\Debug\ListAnagrafica.exe
+C:\Users\Emilio\Desktop\Itis\C#\ListAnagrafica\ListAnagrafica\obj\Debug\ListAnagrafica.pdb
