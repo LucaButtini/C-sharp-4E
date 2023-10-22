@@ -364,7 +364,7 @@ namespace AnagraficaRefactored
                 if (cf == p[i].Id)
                 {
                     check = true;
-                    for (int j = i; j < j - 1; j++)// sposto tutti gli elementi successivi all'elemento da eliminare all'indietro
+                    for (int j = i; j < index - 1; j++)
                     {
                         p[j] = p[j + 1];
                     }
