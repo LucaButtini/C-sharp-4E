@@ -127,21 +127,21 @@ namespace AnagraficaRefactored
             } while (scelta1 != 6);
         }
 
-        static int LeggiPersona(Persona[] p, ref int index)
+        static int LeggiPersona(Persona[] p, ref int j)
         {
             bool checkDate = false;
-            if (index < p.Length)
+            if (j < p.Length)
             {
-                Console.WriteLine($"Inserimento persona {index + 1}:");
+                Console.WriteLine($"Inserimento persona {j + 1}:");
 
                 Console.WriteLine("Inserisci nome: ");
-                p[index].Nome = Console.ReadLine();
+                p[j].Nome = Console.ReadLine();
 
                 Console.WriteLine("Inserisci cognome: ");
-                p[index].Cognome = Console.ReadLine();
+                p[j].Cognome = Console.ReadLine();
 
                 Console.WriteLine("Inserisci cittadinanza: ");
-                p[index].Cittadinanza = Console.ReadLine();
+                p[j].Cittadinanza = Console.ReadLine();
                 checkDate = false; //metto a false la var bool ogni volta che si inserisce una persona.
 
                 // Continua a chiedere all'utente di inserire la data fino a quando non viene inserita correttamente
@@ -150,7 +150,7 @@ namespace AnagraficaRefactored
                     try
                     {
                         Console.WriteLine("Inserisci data di nascita (formato: dd/mm/yyyy): ");
-                        p[index].Nascita = DateTime.Parse(Console.ReadLine());
+                        p[j].Nascita = DateTime.Parse(Console.ReadLine());
                         checkDate = true; // La data è stata inserita correttamente, usciamo dal ciclo
                     }
                     catch (FormatException)
@@ -166,16 +166,16 @@ namespace AnagraficaRefactored
                     Console.WriteLine("Codice fiscale già presente. Reinserisci.");
                     id = Console.ReadLine();
                 }
-                p[index].Id = id;
+                p[j].Id = id;
 
                 Console.WriteLine("Inserisci genere");
                 switch (MenuGenere(p))
                 {
                     case 1:
-                        p[index].Genere = Sesso.Maschio;
+                        p[j].Genere = Sesso.Maschio;
                         break;
                     case 2:
-                        p[index].Genere = Sesso.Femmina;
+                        p[j].Genere = Sesso.Femmina;
                         break;
                 }
 
@@ -183,22 +183,22 @@ namespace AnagraficaRefactored
                 switch (MenuStatoCivile(p))
                 {
                     case 1:
-                        p[index].Stato = StatoCivile.Celibe;
+                        p[j].Stato = StatoCivile.Celibe;
                         break;
                     case 2:
-                        p[index].Stato = StatoCivile.Nubile;
+                        p[j].Stato = StatoCivile.Nubile;
                         break;
                     case 3:
-                        p[index].Stato = StatoCivile.Coniugato;
+                        p[j].Stato = StatoCivile.Coniugato;
                         break;
                     case 4:
-                        p[index].Stato = StatoCivile.Vedovo;
+                        p[j].Stato = StatoCivile.Vedovo;
                         break;
                     case 5:
-                        p[index].Stato = StatoCivile.Separato;
+                        p[j].Stato = StatoCivile.Separato;
                         break;
                 }
-                index++;
+                j++;
                 return 0; //inserimento andato a buon fine
             }
             else
@@ -321,7 +321,7 @@ namespace AnagraficaRefactored
 
         static void ModificaStato(Persona[] p, string cf)
         {
-            int index = 0;
+            int j = 0;
             bool check = false;
             foreach (Persona persona in p)
             {
@@ -331,25 +331,25 @@ namespace AnagraficaRefactored
                     switch (MenuStatoCivile(p))
                     {
                         case 1:
-                            p[index].Stato = StatoCivile.Celibe;
+                            p[j].Stato = StatoCivile.Celibe;
                             break;
                         case 2:
-                            p[index].Stato = StatoCivile.Nubile;
+                            p[j].Stato = StatoCivile.Nubile;
                             break;
                         case 3:
-                            p[index].Stato = StatoCivile.Coniugato;
+                            p[j].Stato = StatoCivile.Coniugato;
                             break;
                         case 4:
-                            p[index].Stato = StatoCivile.Vedovo;
+                            p[j].Stato = StatoCivile.Vedovo;
                             break;
                         case 5:
-                            p[index].Stato = StatoCivile.Separato;
+                            p[j].Stato = StatoCivile.Separato;
                             break;
                     }
                 }
                 else
                 {
-                    index++;
+                    j++;
                 }
             }
             if (!check)
@@ -364,7 +364,7 @@ namespace AnagraficaRefactored
                 if (cf == p[i].Id)
                 {
                     check = true;
-                    for (int j = i; j < index - 1; j++)// sposto tutti gli elementi successivi all'elemento da eliminare all'indietro
+                    for (int j = i; j < j - 1; j++)// sposto tutti gli elementi successivi all'elemento da eliminare all'indietro
                     {
                         p[j] = p[j + 1];
                     }
