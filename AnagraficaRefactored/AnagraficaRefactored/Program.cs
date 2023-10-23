@@ -104,7 +104,7 @@ namespace AnagraficaRefactored
                         break;
                     case 5:
                         Console.WriteLine("===CANCELLA UTENTE===");
-                        Console.WriteLine("Inserisci il codice fiscale della persona da cancellare dall'anagrafuica");
+                        Console.WriteLine("Inserisci il codice fiscale della persona da cancellare dall'anagrafica");
                         cf = Console.ReadLine();
                         EliminaUtente(persone, cf, ref index);
                         break;
@@ -149,11 +149,12 @@ namespace AnagraficaRefactored
                 {
                     try
                     {
+                        //solleva l'eccezione
                         Console.WriteLine("Inserisci data di nascita (formato: dd/mm/yyyy): ");
                         p[j].Nascita = DateTime.Parse(Console.ReadLine());
                         checkDate = true; // La data è stata inserita correttamente, usciamo dal ciclo
                     }
-                    catch (FormatException)
+                    catch (Exception)
                     {
                         Console.WriteLine("Formato data non valido. Inserisci nel formato corretto (dd/mm/yyyy).");
                     }
@@ -167,7 +168,6 @@ namespace AnagraficaRefactored
                     id = Console.ReadLine();
                 }
                 p[j].Id = id;
-
                 Console.WriteLine("Inserisci genere");
                 switch (MenuGenere(p))
                 {
