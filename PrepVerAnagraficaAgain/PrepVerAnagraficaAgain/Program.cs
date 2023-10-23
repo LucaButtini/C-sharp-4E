@@ -45,7 +45,6 @@ namespace PrepVerAnagraficaAgain
             int d = 3, pos = 0, scelta;
             string[] menuAnagrafica = { "Inserimento", "Visualizza", "Esci" };
             Persona[] p = new Persona[d];
-            bool b;
             do
             {
                 Console.WriteLine("======================");

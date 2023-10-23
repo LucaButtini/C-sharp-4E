@@ -70,7 +70,7 @@ namespace AnagraficaRefactored
                     case 2:
                         Console.WriteLine();
                         Console.WriteLine("=====ANAGRAFICA=====");
-                        StampaPersone(persone);
+                        StampaPersone(persone, ref index);
                         break;
 
                     case 3:
@@ -311,12 +311,10 @@ namespace AnagraficaRefactored
                 Console.WriteLine($"[{i + 1}] {menu[i]}");
         }
 
-        static void StampaPersone(Persona[] p)
+        static void StampaPersone(Persona[] p, ref int index)
         {
-            foreach (Persona persona in p)
-            {
-                Console.WriteLine(persona);
-            }
+            for (int i = 0; i < index; i++)
+                Console.WriteLine(p[i]);
         }
 
         static void ModificaStato(Persona[] p, string cf)
