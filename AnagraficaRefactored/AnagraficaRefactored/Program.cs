@@ -276,7 +276,6 @@ namespace AnagraficaRefactored
 
             if (dataCorrente < dataNascita.AddYears(eta))//Verifica se la data corrente è precedente al giorno esatto di compleanno dell'anno corrente. 
                 eta--;//Se la data corrente è prima del giorno esatto di compleanno, decrementa l'età calcolata di 1, in modo che rappresenti l'età precisa.
-
             return eta;
         }
         //---------------------------------------------------------------
