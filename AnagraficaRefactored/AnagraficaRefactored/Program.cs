@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Diagnostics.Eventing.Reader;
-using System.Reflection;
 
 namespace AnagraficaRefactored
 {
@@ -18,7 +16,12 @@ namespace AnagraficaRefactored
         Vedovo,
         Separato
     }
-
+    enum StatoElemento //stato anagrafica
+    {
+        Libero,
+        Occupato,
+        Cancellato
+    }
     struct Persona
     {
         public string Id; // Codice fiscale
@@ -29,9 +32,9 @@ namespace AnagraficaRefactored
         public StatoCivile Stato;
         public Sesso Genere;
 
-        public override string ToString()//uso ovveride della stringa
+        public override string ToString()
         {
-            return String.Format($"NOME: {Nome}, COGNOME: {Cognome}, CITTADINANZA: {Cittadinanza}, NASCITA: {Nascita}, ID: {Id}, GENERE: {Genere}, STATO CIVILE: {Stato} ");
+            return $"NOME: {Nome}, COGNOME: {Cognome}, CITTADINANZA: {Cittadinanza}, NASCITA: {Nascita}, ID: {Id}, GENERE: {Genere}, STATO CIVILE: {Stato}";
         }
     }
 
@@ -39,38 +42,35 @@ namespace AnagraficaRefactored
     {
         static void Main(string[] args)
         {
-
             string[] opzioni1 = { "Inserimento", "Visualizza", "Età", "Modifica Stato", "Cancella utente", "Esci dal Menu" };
             string[] opzioni2 = { "Persona", "Archivio" };
-            int grandezza = 3, index = 0, check;
+            int grandezza = 3, index = 0;
             Persona[] persone = new Persona[grandezza];
+            StatoElemento[] statoElementi = new StatoElemento[grandezza];
             int scelta1, scelta2;
             string cf;
+
+            for (int i = 0; i < grandezza; i++)
+            {
+                statoElementi[i] = StatoElemento.Libero;//inizializzo a libero per indicare che ogni elemento è libero 
+            }
+
             do
             {
                 StampaMenu(opzioni1);
                 Console.WriteLine("Che scelta vuoi fare?");
                 int.TryParse(Console.ReadLine(), out scelta1);
-                //switch case con le opzioni 
+
                 switch (scelta1)
                 {
                     case 1:
-                        check = LeggiPersona(persone, ref index);
-                        switch (check)
-                        {
-                            case 0:
-                                Console.WriteLine("Inserimento completato");
-                                break;
-                            case 1:
-                                Console.WriteLine("Anagrafica al completo");
-                                break;
-                        }
+                        LeggiPersona(persone, statoElementi, ref index);
                         break;
 
                     case 2:
                         Console.WriteLine();
                         Console.WriteLine("=====ANAGRAFICA=====");
-                        StampaPersone(persone, ref index);
+                        StampaPersone(persone, statoElementi);
                         break;
 
                     case 3:
@@ -88,29 +88,31 @@ namespace AnagraficaRefactored
                             case 1:
                                 Console.WriteLine("Inserisci il codice fiscale della persona la quale si desidera sapere l'età");
                                 cf = Console.ReadLine();
-                                Persona(persone, cf);
+                                TrovaEdElencaPersona(persone, statoElementi, cf);
                                 break;
                             case 2:
                                 Console.WriteLine("===ARCHIVIO===");
-                                Archivio(persone);
+                                Archivio(persone, statoElementi);
                                 break;
                         }
                         break;
+
                     case 4:
                         Console.WriteLine("===MODIFICA STATO CIVILE=== ");
                         Console.WriteLine("Inserisci il codice fiscale della persona la quale vuoi cambiare lo stato civile");
                         cf = Console.ReadLine();
-                        ModificaStato(persone, cf);
+                        ModificaStato(persone, statoElementi, cf);
                         break;
+
                     case 5:
                         Console.WriteLine("===CANCELLA UTENTE===");
                         Console.WriteLine("Inserisci il codice fiscale della persona da cancellare dall'anagrafica");
                         cf = Console.ReadLine();
-                        EliminaUtente(persone, cf, ref index);
+                        EliminaUtente(persone, statoElementi, cf);
                         break;
+
                     case 6:
                         Console.WriteLine("Uscita dal Menu");
-
                         break;
 
                     default:
@@ -127,85 +129,212 @@ namespace AnagraficaRefactored
             } while (scelta1 != 6);
         }
 
-        static int LeggiPersona(Persona[] p, ref int j)
+        static void LeggiPersona(Persona[] p, StatoElemento[] stato, ref int j)
         {
-            bool checkDate = false;
             if (j < p.Length)
             {
-                Console.WriteLine($"Inserimento persona {j + 1}:");
+                int index = TrovaElementoLibero(stato);
 
-                Console.WriteLine("Inserisci nome: ");
-                p[j].Nome = Console.ReadLine();
-
-                Console.WriteLine("Inserisci cognome: ");
-                p[j].Cognome = Console.ReadLine();
-
-                Console.WriteLine("Inserisci cittadinanza: ");
-                p[j].Cittadinanza = Console.ReadLine();
-                checkDate = false; //metto a false la var bool ogni volta che si inserisce una persona.
-
-                // Continua a chiedere all'utente di inserire la data fino a quando non viene inserita correttamente
-                while (!checkDate)
+                if (index != -1)
                 {
-                    try
+                    bool checkDate = false;
+
+                    Console.WriteLine($"Inserimento persona {index + 1}:");
+
+                    Console.WriteLine("Inserisci nome: ");
+                    p[index].Nome = Console.ReadLine();
+
+                    Console.WriteLine("Inserisci cognome: ");
+                    p[index].Cognome = Console.ReadLine();
+
+                    Console.WriteLine("Inserisci cittadinanza: ");
+                    p[index].Cittadinanza = Console.ReadLine();
+                    checkDate = false;
+
+                    while (!checkDate)
                     {
-                        //solleva l'eccezione
-                        Console.WriteLine("Inserisci data di nascita (formato: dd/mm/yyyy): ");
-                        p[j].Nascita = DateTime.Parse(Console.ReadLine());
-                        checkDate = true; // La data è stata inserita correttamente, usciamo dal ciclo
+                        try
+                        {
+                            Console.WriteLine("Inserisci data di nascita (formato: dd/mm/yyyy): ");
+                            p[index].Nascita = DateTime.Parse(Console.ReadLine());
+                            checkDate = true;
+                        }
+                        catch (Exception)
+                        {
+                            Console.WriteLine("Formato data non valido. Inserisci nel formato corretto (dd/mm/yyyy).");
+                        }
                     }
-                    catch (Exception)
+
+                    Console.WriteLine("Inserisci id: ");
+                    string id = Console.ReadLine();
+                    while (CheckId(id, p))
                     {
-                        Console.WriteLine("Formato data non valido. Inserisci nel formato corretto (dd/mm/yyyy).");
+                        Console.WriteLine("Codice fiscale già presente. Reinserisci.");
+                        id = Console.ReadLine();
                     }
-                }
+                    p[index].Id = id;
 
-                Console.WriteLine("Inserisci id: ");
-                string id = Console.ReadLine();
-                while (CheckId(id, p))
-                {
-                    Console.WriteLine("Codice fiscale già presente. Reinserisci.");
-                    id = Console.ReadLine();
-                }
-                p[j].Id = id;
-                Console.WriteLine("Inserisci genere");
-                switch (MenuGenere(p))
-                {
-                    case 1:
-                        p[j].Genere = Sesso.Maschio;
-                        break;
-                    case 2:
-                        p[j].Genere = Sesso.Femmina;
-                        break;
-                }
+                    Console.WriteLine("Inserisci genere");
+                    switch (MenuGenere(p))
+                    {
+                        case 1:
+                            p[index].Genere = Sesso.Maschio;
+                            break;
+                        case 2:
+                            p[index].Genere = Sesso.Femmina;
+                            break;
+                    }
 
-                Console.WriteLine("Inserisci stato civile");
-                switch (MenuStatoCivile(p))
-                {
-                    case 1:
-                        p[j].Stato = StatoCivile.Celibe;
-                        break;
-                    case 2:
-                        p[j].Stato = StatoCivile.Nubile;
-                        break;
-                    case 3:
-                        p[j].Stato = StatoCivile.Coniugato;
-                        break;
-                    case 4:
-                        p[j].Stato = StatoCivile.Vedovo;
-                        break;
-                    case 5:
-                        p[j].Stato = StatoCivile.Separato;
-                        break;
+                    Console.WriteLine("Inserisci stato civile");
+                    switch (MenuStatoCivile(p))
+                    {
+                        case 1:
+                            p[index].Stato = StatoCivile.Celibe;
+                            break;
+                        case 2:
+                            p[index].Stato = StatoCivile.Nubile;
+                            break;
+                        case 3:
+                            p[index].Stato = StatoCivile.Coniugato;
+                            break;
+                        case 4:
+                            p[index].Stato = StatoCivile.Vedovo;
+                            break;
+                        case 5:
+                            p[index].Stato = StatoCivile.Separato;
+                            break;
+                    }
+
+                    stato[index] = StatoElemento.Occupato;
+                    j++;
                 }
-                j++;
-                return 0; //inserimento andato a buon fine
+                else
+                {
+                    Console.WriteLine("Anagrafica al completo");
+                }
             }
             else
             {
-                return 1;//se anagrafica è piena
+                Console.WriteLine("Anagrafica al completo");
             }
         }
+
+        static int TrovaElementoLibero(StatoElemento[] stato)
+        {
+            for (int i = 0; i < stato.Length; i++)
+            {
+                if (stato[i] == StatoElemento.Libero)
+                {
+                    return i;//ritorna pos elemento libero
+                }
+            }
+            return -1; // Nessun elemento libero trovato
+        }
+
+        static void StampaMenu(string[] menu)
+        {
+            for (int i = 0; i < menu.Length; i++)
+                Console.WriteLine($"[{i + 1}] {menu[i]}");
+        }
+
+        static void StampaPersone(Persona[] p, StatoElemento[] stato)
+        {
+            for (int i = 0; i < stato.Length; i++)
+            {
+                if (stato[i] == StatoElemento.Occupato)
+                {
+                    Console.WriteLine($"Persona {i + 1}: {p[i]}, Stato Elemento: {stato[i]}");
+                }
+            }
+        }
+
+
+        static void TrovaEdElencaPersona(Persona[] p, StatoElemento[] stato, string cf)
+        {
+            for (int i = 0; i < p.Length; i++)
+            {
+                if (stato[i] == StatoElemento.Occupato && p[i].Id == cf)
+                {
+                    DateTime dataCorrente = DateTime.Now;
+                    int eta = CalcolaAnni(p[i].Nascita, dataCorrente);
+                    Console.WriteLine($"Persona: {p[i].Nome} {p[i].Cognome}, Età: {eta}");
+                    return;
+                }
+            }
+
+            Console.WriteLine("Nessuna persona trovata con questo codice fiscale");
+        }
+
+        static void Archivio(Persona[] p, StatoElemento[] stato)
+        {
+            DateTime dataCorrente = DateTime.Now;
+            for (int i = 0; i < p.Length; i++)
+            {
+                if (stato[i] == StatoElemento.Occupato)
+                {
+                    int eta = CalcolaAnni(p[i].Nascita, dataCorrente);
+                    Console.WriteLine($"Persona: {p[i].Nome} {p[i].Cognome}, Età: {eta}");
+                }
+            }
+        }
+
+        static void ModificaStato(Persona[] p, StatoElemento[] stato, string cf)
+        {
+            for (int i = 0; i < p.Length; i++)
+            {
+                if (stato[i] == StatoElemento.Occupato && p[i].Id == cf)
+                {
+                    Console.WriteLine("Inserisci nuovo stato civile");
+                    switch (MenuStatoCivile(p))
+                    {
+                        case 1:
+                            p[i].Stato = StatoCivile.Celibe;
+                            break;
+                        case 2:
+                            p[i].Stato = StatoCivile.Nubile;
+                            break;
+                        case 3:
+                            p[i].Stato = StatoCivile.Coniugato;
+                            break;
+                        case 4:
+                            p[i].Stato = StatoCivile.Vedovo;
+                            break;
+                        case 5:
+                            p[i].Stato = StatoCivile.Separato;
+                            break;
+                    }
+                    return;
+                }
+            }
+
+            Console.WriteLine("Nessuna persona trovata con questo codice fiscale");
+        }
+
+        static void EliminaUtente(Persona[] p, StatoElemento[] stato, string cf)
+        {
+            for (int i = 0; i < p.Length; i++)
+            {
+                if (stato[i] == StatoElemento.Occupato && p[i].Id == cf)
+                {
+                    stato[i] = StatoElemento.Cancellato;
+                    Console.WriteLine("Eliminazione avvenuta con successo");
+                    return;
+                }
+            }
+
+            Console.WriteLine("Nessuna persona trovata con questo codice fiscale");
+        }
+
+        static bool CheckId(string s, Persona[] p)
+        {
+            for (int i = 0; i < p.Length; i++)
+            {
+                if (p[i].Id == s)
+                    return true;
+            }
+            return false;
+        }
+
         static int MenuGenere(Persona[] p)
         {
             int scelta = 0;
@@ -223,6 +352,7 @@ namespace AnagraficaRefactored
             }
             return scelta;
         }
+
         static int MenuStatoCivile(Persona[] p)
         {
             int scelta = 0;
@@ -241,140 +371,14 @@ namespace AnagraficaRefactored
             return scelta;
         }
 
-        static bool CheckId(string s, Persona[] p)
-        {
-            for (int i = 0; i < p.Length; i++)
-            {
-                if (s == p[i].Id)
-                    return true;
-            }
-            return false;
-        }
-        //---------------------------------------------------------------
-        //---------------------------------------------------------------
-        //CALCOLO ETA'
-        static void Persona(Persona[] p, string cf)
-        {
-            DateTime dataCorrente = DateTime.Now;
-            int eta = -1;  // Inizializza l'età a -1 come valore predefinito
-
-            foreach (var persona in p)
-            {
-                if (persona.Id == cf)  // Controlla il codice fiscale per la persona corrente
-                {
-                    eta = CalcolaEtaSenzaDateTime(persona.Nascita.Year, persona.Nascita.Month, persona.Nascita.Day);
-                    //eta = CalcolaAnni(persona.Nascita, dataCorrente);
-                    Console.WriteLine($"Persona: {persona.Nome} {persona.Cognome}, Età: {eta}");
-                }
-            }
-            if (eta == -1) // Nessuna persona trovata con il codice fiscale cercato
-                Console.WriteLine("Nessuna persona trovata con il codice fiscale cercato");
-        }
         static int CalcolaAnni(DateTime dataNascita, DateTime dataCorrente)
         {
-            int eta = dataCorrente.Year - dataNascita.Year;//confronto gli anni 
+            int eta = dataCorrente.Year - dataNascita.Year;
 
-            if (dataCorrente < dataNascita.AddYears(eta))//Verifica se la data corrente è precedente al giorno esatto di compleanno dell'anno corrente. 
-                eta--;//Se la data corrente è prima del giorno esatto di compleanno, decrementa l'età calcolata di 1, in modo che rappresenti l'età precisa.
-            return eta;
-        }
-        //---------------------------------------------------------------
-        //---------------------------------------------------------------
-        static int CalcolaEtaSenzaDateTime(int annoNascita, int meseNascita, int giornoNascita)
-        {
-            DateTime dataCorrente = DateTime.Now;
-            int eta = dataCorrente.Year - annoNascita;
-
-            // Verifica se la data di compleanno è successiva alla data corrente nell'anno corrente
-            //Il primo controllo verifica se il mese di nascita è successivo al mese corrente.
-            //Il secondo controllo viene eseguito se il mese di nascita è lo stesso mese corrente, ma il giorno di nascita è successivo al giorno corrente.
-            if (meseNascita > dataCorrente.Month || (meseNascita == dataCorrente.Month && giornoNascita > dataCorrente.Day))
-            {
+            if (dataCorrente < dataNascita.AddYears(eta))
                 eta--;
-            }
+
             return eta;
-        }
-        static void Archivio(Persona[] p)
-        {
-            int eta = 0;
-            DateTime dataCorrente = DateTime.Now;
-            foreach (var persona in p)
-            {
-                eta = CalcolaAnni(persona.Nascita, dataCorrente);
-                Console.WriteLine($"Persona: {persona.Nome} {persona.Cognome}, Età: {eta}");
-            }
-        }
-        static void StampaMenu(string[] menu)
-        {
-            for (int i = 0; i < menu.Length; i++)
-                Console.WriteLine($"[{i + 1}] {menu[i]}");
-        }
-
-        static void StampaPersone(Persona[] p, ref int index)
-        {
-            for (int i = 0; i < index; i++)
-                Console.WriteLine(p[i]);
-        }
-
-        static void ModificaStato(Persona[] p, string cf)
-        {
-            int j = 0;
-            bool check = false;
-            foreach (Persona persona in p)
-            {
-                if (cf == persona.Id)
-                {
-                    check = true;
-                    switch (MenuStatoCivile(p))
-                    {
-                        case 1:
-                            p[j].Stato = StatoCivile.Celibe;
-                            break;
-                        case 2:
-                            p[j].Stato = StatoCivile.Nubile;
-                            break;
-                        case 3:
-                            p[j].Stato = StatoCivile.Coniugato;
-                            break;
-                        case 4:
-                            p[j].Stato = StatoCivile.Vedovo;
-                            break;
-                        case 5:
-                            p[j].Stato = StatoCivile.Separato;
-                            break;
-                    }
-                }
-                else
-                {
-                    j++;
-                }
-            }
-            if (!check)
-                Console.WriteLine("Nessuna persona trovata con questo codice fiscale");
-        }
-
-        static void EliminaUtente(Persona[] p, string cf, ref int index)
-        {
-            bool check = false;
-            for (int i = 0; i < index; i++) // itero fino ad index
-            {
-                if (cf == p[i].Id)
-                {
-                    check = true;
-                    for (int j = i; j < index - 1; j++)
-                    {
-                        p[j] = p[j + 1];
-                    }
-                    p[index - 1] = new Persona(); // azzero l'ultimo elemento duplicato nell'array
-                    index--;
-                    Console.WriteLine("Eliminazione avvenuta con successo");
-                    break; //esco dal ciclo
-                }
-            }
-            if (!check)
-            {
-                Console.WriteLine("Nessuna persona trovata con questo codice fiscale");
-            }
         }
     }
 }
