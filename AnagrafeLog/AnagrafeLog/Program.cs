@@ -118,6 +118,10 @@ namespace AnagrafeLog
                         Console.WriteLine("Seleziona un file di log:");
 
                         string directory = Path.Combine(Environment.CurrentDirectory, "logBin");
+                        GetFiles(directory);
+
+                        //Console.WriteLine("Seleziona un file di log:");
+
                         if (Directory.Exists(directory))
                         {
                             string[] files = Directory.GetFiles(directory, "*.txt");
@@ -126,20 +130,9 @@ namespace AnagrafeLog
                             {
                                 for (int i = 0; i < files.Length; i++)
                                 {
-                                    Console.WriteLine($"{i + 1}: {Path.GetFileName(files[i])}");
+                                    DateTime fileCreationTime = File.GetCreationTime(files[i]);
+                                    Console.WriteLine($"{i + 1}: {fileCreationTime} - {Path.GetFileName(files[i])}");
                                 }
-
-                                //int fileChoice;
-                                //Console.WriteLine("Seleziona un file digitando il numero corrispondente:");
-                                //if (int.TryParse(Console.ReadLine(), out fileChoice) && fileChoice > 0 && fileChoice <= files.Length)
-                                //{
-                                //    string selectedFile = files[fileChoice - 1];
-                                //    LeggiFile(selectedFile);
-                                //}
-                                //else
-                                //{
-                                //    Console.WriteLine("Selezione non valida. Riprova.");
-                                //}
                             }
                             else
                             {
@@ -152,6 +145,17 @@ namespace AnagrafeLog
                         }
                         break;
 
+                    //int fileChoice;
+                    //Console.WriteLine("Seleziona un file digitando il numero corrispondente:");
+                    //if (int.TryParse(Console.ReadLine(), out fileChoice) && fileChoice > 0 && fileChoice <= files.Length)
+                    //{
+                    //    string selectedFile = files[fileChoice - 1];
+                    //    LeggiFile(selectedFile);
+                    //}
+                    //else
+                    //{
+                    //    Console.WriteLine("Selezione non valida. Riprova.");
+                    //}
                     case 7:
                         Console.WriteLine("Uscita dal Menu");
                         break;
@@ -425,6 +429,8 @@ namespace AnagrafeLog
 
 
         //implementazione col file di log
+
+
         static void ScriviFile(string path, string stringa)
         {
             StreamWriter sw = File.AppendText(path);
@@ -442,6 +448,16 @@ namespace AnagrafeLog
                 Console.WriteLine(linea);
                 linea = sr.ReadLine();
             }
+        }
+        static void GetFiles(string directory)
+        {
+            string[] files;
+            files = Directory.GetFiles(directory);
+            foreach (string file in files)
+            {
+                Console.WriteLine(file);
+            }
+            Console.WriteLine(Path.GetFileName(files[0]));
         }
     }
 }
