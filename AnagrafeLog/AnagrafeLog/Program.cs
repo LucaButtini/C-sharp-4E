@@ -115,8 +115,43 @@ namespace AnagrafeLog
                         EliminaUtente(persone, statoElementi, cf);
                         break;
                     case 6:
-                        Console.WriteLine("Percorsi");
+                        Console.WriteLine("Seleziona un file di log:");
+
+                        string directory = Path.Combine(Environment.CurrentDirectory, "logBin");
+                        if (Directory.Exists(directory))
+                        {
+                            string[] files = Directory.GetFiles(directory, "*.txt");
+
+                            if (files.Length > 0)
+                            {
+                                for (int i = 0; i < files.Length; i++)
+                                {
+                                    Console.WriteLine($"{i + 1}: {Path.GetFileName(files[i])}");
+                                }
+
+                                //int fileChoice;
+                                //Console.WriteLine("Seleziona un file digitando il numero corrispondente:");
+                                //if (int.TryParse(Console.ReadLine(), out fileChoice) && fileChoice > 0 && fileChoice <= files.Length)
+                                //{
+                                //    string selectedFile = files[fileChoice - 1];
+                                //    LeggiFile(selectedFile);
+                                //}
+                                //else
+                                //{
+                                //    Console.WriteLine("Selezione non valida. Riprova.");
+                                //}
+                            }
+                            else
+                            {
+                                Console.WriteLine("Nessun file con estensione .txt trovato nella directory specificata.");
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("La directory non esiste o non è accessibile.");
+                        }
                         break;
+
                     case 7:
                         Console.WriteLine("Uscita dal Menu");
                         break;
@@ -212,7 +247,7 @@ namespace AnagrafeLog
                     }
 
                     stato[index] = StatoElemento.Occupato;
-                    ScriviFile(Environment.CurrentDirectory + "\\log.txt", p[index].ToString());
+                    ScriviFile(Path.Combine(Environment.CurrentDirectory, "logBin", "log.txt"), p[index].ToString());
                     j++;
                 }
                 else
