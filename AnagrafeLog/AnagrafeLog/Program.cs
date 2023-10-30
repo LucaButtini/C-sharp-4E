@@ -115,36 +115,50 @@ namespace AnagrafeLog
                         EliminaUtente(persone, statoElementi, cf);
                         break;
                     case 6:
-                        Console.WriteLine("Seleziona un file di log:");
+                        // Creazione di un nome univoco per il file di log basato sul timestamp corrente
+                        //string logFileName = $"Log_{DateTime.Now:yyyyMMdd_HHmmss}.log";
+                        //Quando la riga di codice viene eseguita, si genera una stringa che combina la parte fissa "LogFile_" con l'istante di tempo attuale formattato secondo il modello "yyyyMMdd_HHmmss", seguito dall'estensione .log. Ad esempio, se l'istante attuale fosse il 30 ottobre 2023 alle ore 16:54:01, il logFileName generato sarebbe qualcosa del tipo LogFile_20231030_165401.log.
+                        // Definizione del percorso del nuovo file di log nella directory 'logbin'
+                        //string logFilePath = Path.Combine(Environment.CurrentDirectory, "logbin", logFileName);
 
-                        string directory = Path.Combine(Environment.CurrentDirectory, "logBin");
+                        // Scrivi i dettagli nel nuovo file di log
+                        // Definizione del percorso della directory 'logbin' nella directory corrente
+                        string directory = Path.Combine(Environment.CurrentDirectory, "logbin");
+
+                        // Chiamata a una funzione che elenca i file presenti nella directory 'logbin'
                         GetFiles(directory);
 
-                        //Console.WriteLine("Seleziona un file di log:");
-
+                        // Verifica se la directory 'logbin' esiste
                         if (Directory.Exists(directory))
                         {
+                            // Ottiene tutti i file con estensione '.txt' all'interno della directory
                             string[] files = Directory.GetFiles(directory, "*.txt");
 
+                            // Se ci sono file con estensione '.txt' presenti nella directory
                             if (files.Length > 0)
                             {
+                                // Ciclo for per ogni file trovato
                                 for (int i = 0; i < files.Length; i++)
                                 {
-                                    DateTime fileCreationTime = File.GetCreationTime(files[i]);
-                                    Console.WriteLine($"{i + 1}: {fileCreationTime} - {Path.GetFileName(files[i])}");
+                                    // Ottiene la data di creazione del file
+                                    DateTime dataCreazione = File.GetCreationTime(files[i]);
+
+                                    // Stampa l'indice (partendo da 1), la data di creazione e il nome del file
+                                    Console.WriteLine($"{i + 1}: {dataCreazione} - {Path.GetFileName(files[i])}");
                                 }
                             }
                             else
                             {
+                                // Messaggio in caso non ci siano file con estensione '.txt' nella directory
                                 Console.WriteLine("Nessun file con estensione .txt trovato nella directory specificata.");
                             }
                         }
                         else
                         {
+                            // Messaggio se la directory 'logbin' non esiste o non è accessibile
                             Console.WriteLine("La directory non esiste o non è accessibile.");
                         }
                         break;
-
                     //int fileChoice;
                     //Console.WriteLine("Seleziona un file digitando il numero corrispondente:");
                     //if (int.TryParse(Console.ReadLine(), out fileChoice) && fileChoice > 0 && fileChoice <= files.Length)
@@ -164,7 +178,6 @@ namespace AnagrafeLog
                         Console.WriteLine("Scelta non valida. Riprova.");
                         break;
                 }
-
                 if (scelta1 != 7)
                 {
                     Console.WriteLine("Premi Invio per tornare al Menu.");
@@ -251,7 +264,9 @@ namespace AnagrafeLog
                     }
 
                     stato[index] = StatoElemento.Occupato;
-                    ScriviFile(Path.Combine(Environment.CurrentDirectory, "logBin", "log.txt"), p[index].ToString());
+
+                    // Ora, dopo aver completato il processo di inserimento, scrivi il file di log
+                    ScriviFile(Path.Combine(Environment.CurrentDirectory, "logbin", "log.txt"), p[index].ToString());
                     j++;
                 }
                 else
@@ -430,13 +445,19 @@ namespace AnagrafeLog
 
         //implementazione col file di log
 
-
         static void ScriviFile(string path, string stringa)
         {
             StreamWriter sw = File.AppendText(path);
             sw.WriteLine(DateTime.Now.ToString() + " " + stringa);
+
             sw.Close();
         }
+        //static void ScriviFile(string path, string stringa)
+        //{
+        //    StreamWriter sw = File.AppendText(path);
+        //    sw.WriteLine(DateTime.Now.ToString() + " " + stringa);
+        //    sw.Close();
+        //}
 
         static void LeggiFile(string path)
         {
