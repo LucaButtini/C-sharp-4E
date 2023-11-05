@@ -394,15 +394,11 @@ namespace AnagrafeListe
             Console.WriteLine("Nessuna persona trovata con questo codice fiscale o lo stato non è 'Occupato'.");
         }
 
-
-
-
-
-        static Persona ModificaStatoPersona(Persona persona, StatoCivile nuovoStato)
-        {
-            persona.Stato = nuovoStato;
-            return persona;
-        }
+        //static Persona ModificaStatoPersona(Persona persona, StatoCivile nuovoStato)
+        //{
+        //    persona.Stato = nuovoStato;
+        //    return persona;
+        //}
 
 
 
