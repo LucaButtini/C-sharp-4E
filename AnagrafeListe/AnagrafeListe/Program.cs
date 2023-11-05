@@ -89,7 +89,18 @@ namespace AnagrafeListe
                         EliminaUtente(persone, statoElementi, cf);
                         break;
                     case 6:
+                        // Creazione di un nome univoco per il file di log basato sul timestamp corrente
+                        //string logFileName = $"Log_{DateTime.Now:yyyyMMdd_HHmmss}.log";
+                        //Quando la riga di codice viene eseguita, si genera una stringa che combina la parte fissa "LogFile_" con l'istante di tempo attuale formattato secondo il modello "yyyyMMdd_HHmmss", seguito dall'estensione .log. Ad esempio, se l'istante attuale fosse il 30 ottobre 2023 alle ore 16:54:01, il logFileName generato sarebbe qualcosa del tipo LogFile_20231030_165401.log.
+                        // Definizione del percorso del nuovo file di log nella directory 'logbin'
+                        //string logFilePath = Path.Combine(Environment.CurrentDirectory, "logbin", logFileName);
+
+                        // Scrivi i dettagli nel nuovo file di log
+                        // Definizione del percorso della directory 'logbin' nella directory corrente
                         string directory = Path.Combine(Environment.CurrentDirectory, "logbin");
+
+                        // Chiamata a una funzione che elenca i file presenti nella directory 'logbin'
+                        GetFiles(directory);
 
                         // Verifica se la directory 'logbin' esiste
                         if (Directory.Exists(directory))
@@ -97,15 +108,18 @@ namespace AnagrafeListe
                             // Ottiene tutti i file con estensione '.txt' all'interno della directory
                             string[] files = Directory.GetFiles(directory, "*.txt");
 
+                            // Se ci sono file con estensione '.txt' presenti nella directory
                             if (files.Length > 0)
                             {
-                                // Mostra i file trovati
-                                foreach (var file in files)
+                                // Ciclo for per ogni file trovato
+                                for (int i = 0; i < files.Length; i++)
                                 {
-                                    Console.WriteLine(file);
-                                }
+                                    // Ottiene la data di creazione del file
+                                    DateTime dataCreazione = File.GetCreationTime(files[i]);
 
-                                // Leggi un file
+                                    // Stampa l'indice (partendo da 1), la data di creazione e il nome del file
+                                    Console.WriteLine($"{i + 1}: {dataCreazione} - {Path.GetFileName(files[i])}");
+                                }
                                 int fileChoice;
                                 Console.WriteLine("Seleziona un file digitando il numero corrispondente:");
                                 if (int.TryParse(Console.ReadLine(), out fileChoice) && fileChoice > 0 && fileChoice <= files.Length)
@@ -120,14 +134,56 @@ namespace AnagrafeListe
                             }
                             else
                             {
+                                // Messaggio in caso non ci siano file con estensione '.txt' nella directory
                                 Console.WriteLine("Nessun file con estensione .txt trovato nella directory specificata.");
                             }
                         }
                         else
                         {
+                            // Messaggio se la directory 'logbin' non esiste o non è accessibile
                             Console.WriteLine("La directory non esiste o non è accessibile.");
                         }
                         break;
+                    //case 6:
+                    //    string directory = Path.Combine(Environment.CurrentDirectory, "logbin");
+
+                    //    // Verifica se la directory 'logbin' esiste
+                    //    if (Directory.Exists(directory))
+                    //    {
+                    //        // Ottiene tutti i file con estensione '.txt' all'interno della directory
+                    //        string[] files = Directory.GetFiles(directory, "*.txt");
+
+                    //        if (files.Length > 0)
+                    //        {
+                    //            // Mostra i file trovati
+                    //            foreach (var file in files)
+                    //            {
+                    //                Console.WriteLine(file);
+                    //            }
+
+                    //            // Leggi un file
+                    //            int fileChoice;
+                    //            Console.WriteLine("Seleziona un file digitando il numero corrispondente:");
+                    //            if (int.TryParse(Console.ReadLine(), out fileChoice) && fileChoice > 0 && fileChoice <= files.Length)
+                    //            {
+                    //                string selectedFile = files[fileChoice - 1];
+                    //                LeggiFile(selectedFile);
+                    //            }
+                    //            else
+                    //            {
+                    //                Console.WriteLine("Selezione non valida. Riprova.");
+                    //            }
+                    //        }
+                    //        else
+                    //        {
+                    //            Console.WriteLine("Nessun file con estensione .txt trovato nella directory specificata.");
+                    //        }
+                    //    }
+                    //    else
+                    //    {
+                    //        Console.WriteLine("La directory non esiste o non è accessibile.");
+                    //    }
+                    //    break;
                     case 7:
                         Console.WriteLine("Uscita dal Menu");
                         break;
@@ -440,33 +496,33 @@ namespace AnagrafeListe
         //    sw.WriteLine(DateTime.Now.ToString() + " " + stringa);
         //    sw.Close();
         //}
-        static void LeggiFile(string path)
-        {
-            if (File.Exists(path))
-            {
-                string[] lines = File.ReadAllLines(path);
-                foreach (string line in lines)
-                {
-                    Console.WriteLine(line);
-                }
-            }
-            else
-            {
-                // Messaggio se il file specificato non esiste
-                Console.WriteLine("Il file specificato non esiste.");
-            }
-        }
         //static void LeggiFile(string path)
         //{
-        //    StreamReader sr = File.OpenText(path);
-        //    string linea;
-        //    linea = sr.ReadLine();
-        //    while (!sr.EndOfStream)
+        //    if (File.Exists(path))
         //    {
-        //        Console.WriteLine(linea);
-        //        linea = sr.ReadLine();
+        //        string[] lines = File.ReadAllLines(path);
+        //        foreach (string line in lines)
+        //        {
+        //            Console.WriteLine(line);
+        //        }
+        //    }
+        //    else
+        //    {
+        //        // Messaggio se il file specificato non esiste
+        //        Console.WriteLine("Il file specificato non esiste.");
         //    }
         //}
+        static void LeggiFile(string path)
+        {
+            StreamReader sr = File.OpenText(path);
+            string linea;
+            linea = sr.ReadLine();
+            while (!sr.EndOfStream)
+            {
+                Console.WriteLine(linea);
+                linea = sr.ReadLine();
+            }
+        }
         static void GetFiles(string directory)
         {
             string[] files;
