@@ -388,6 +388,7 @@ namespace AnagrafeListe
                     persone[i] = personaModificata;
 
                     Console.WriteLine("Stato civile modificato con successo.");
+                    ScriviFile(Path.Combine(Environment.CurrentDirectory, "logbin", "log.txt"), $"Stato modificato: {personaModificata.ToString()}");
                     return;
                 }
             }
@@ -410,6 +411,9 @@ namespace AnagrafeListe
                 {
                     stato[i] = StatoElemento.Cancellato;
                     Console.WriteLine("Utente eliminato con successo.");
+
+                    // Scrivi la cancellazione nel file di log
+                    ScriviFile(Path.Combine(Environment.CurrentDirectory, "logbin", "log.txt"), $"Utente eliminato: {persone[i].ToString()}");
                     return;
                 }
             }
@@ -486,28 +490,9 @@ namespace AnagrafeListe
 
             sw.Close();
         }
-        //static void ScriviFile(string path, string stringa)
-        //{
-        //    StreamWriter sw = File.AppendText(path);
-        //    sw.WriteLine(DateTime.Now.ToString() + " " + stringa);
-        //    sw.Close();
-        //}
-        //static void LeggiFile(string path)
-        //{
-        //    if (File.Exists(path))
-        //    {
-        //        string[] lines = File.ReadAllLines(path);
-        //        foreach (string line in lines)
-        //        {
-        //            Console.WriteLine(line);
-        //        }
-        //    }
-        //    else
-        //    {
-        //        // Messaggio se il file specificato non esiste
-        //        Console.WriteLine("Il file specificato non esiste.");
-        //    }
-        //}
+
+
+
         static void LeggiFile(string path)
         {
             StreamReader sr = File.OpenText(path);
