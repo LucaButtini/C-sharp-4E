@@ -1,0 +1,14 @@
+D:\4F\cherubin niccolo\BogoSort\BogoSort\bin\Debug\BogoSort.exe.config
+D:\4F\cherubin niccolo\BogoSort\BogoSort\bin\Debug\BogoSort.exe
+D:\4F\cherubin niccolo\BogoSort\BogoSort\bin\Debug\BogoSort.pdb
+D:\4F\cherubin niccolo\BogoSort\BogoSort\obj\Debug\BogoSort.csproj.AssemblyReference.cache
+D:\4F\cherubin niccolo\BogoSort\BogoSort\obj\Debug\BogoSort.csproj.CoreCompileInputs.cache
+D:\4F\cherubin niccolo\BogoSort\BogoSort\obj\Debug\BogoSort.exe
+D:\4F\cherubin niccolo\BogoSort\BogoSort\obj\Debug\BogoSort.pdb
+C:\Users\Emilio\Desktop\Itis\C#\BogoSort\BogoSort\bin\Debug\BogoSort.exe.config
+C:\Users\Emilio\Desktop\Itis\C#\BogoSort\BogoSort\bin\Debug\BogoSort.exe
+C:\Users\Emilio\Desktop\Itis\C#\BogoSort\BogoSort\bin\Debug\BogoSort.pdb
+C:\Users\Emilio\Desktop\Itis\C#\BogoSort\BogoSort\obj\Debug\BogoSort.csproj.AssemblyReference.cache
+C:\Users\Emilio\Desktop\Itis\C#\BogoSort\BogoSort\obj\Debug\BogoSort.csproj.CoreCompileInputs.cache
+C:\Users\Emilio\Desktop\Itis\C#\BogoSort\BogoSort\obj\Debug\BogoSort.exe
+C:\Users\Emilio\Desktop\Itis\C#\BogoSort\BogoSort\obj\Debug\BogoSort.pdb

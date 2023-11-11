@@ -1,0 +1,7 @@
+D:\4E\Buttini Luca\AnagrafeCvs\AnagrafeCvs\bin\Debug\AnagrafeCvs.exe.config
+D:\4E\Buttini Luca\AnagrafeCvs\AnagrafeCvs\bin\Debug\AnagrafeCvs.exe
+D:\4E\Buttini Luca\AnagrafeCvs\AnagrafeCvs\bin\Debug\AnagrafeCvs.pdb
+D:\4E\Buttini Luca\AnagrafeCvs\AnagrafeCvs\obj\Debug\AnagrafeCvs.csproj.AssemblyReference.cache
+D:\4E\Buttini Luca\AnagrafeCvs\AnagrafeCvs\obj\Debug\AnagrafeCvs.csproj.CoreCompileInputs.cache
+D:\4E\Buttini Luca\AnagrafeCvs\AnagrafeCvs\obj\Debug\AnagrafeCvs.exe
+D:\4E\Buttini Luca\AnagrafeCvs\AnagrafeCvs\obj\Debug\AnagrafeCvs.pdb

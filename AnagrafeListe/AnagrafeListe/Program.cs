@@ -144,46 +144,6 @@ namespace AnagrafeListe
                             Console.WriteLine("La directory non esiste o non è accessibile.");
                         }
                         break;
-                    //case 6:
-                    //    string directory = Path.Combine(Environment.CurrentDirectory, "logbin");
-
-                    //    // Verifica se la directory 'logbin' esiste
-                    //    if (Directory.Exists(directory))
-                    //    {
-                    //        // Ottiene tutti i file con estensione '.txt' all'interno della directory
-                    //        string[] files = Directory.GetFiles(directory, "*.txt");
-
-                    //        if (files.Length > 0)
-                    //        {
-                    //            // Mostra i file trovati
-                    //            foreach (var file in files)
-                    //            {
-                    //                Console.WriteLine(file);
-                    //            }
-
-                    //            // Leggi un file
-                    //            int fileChoice;
-                    //            Console.WriteLine("Seleziona un file digitando il numero corrispondente:");
-                    //            if (int.TryParse(Console.ReadLine(), out fileChoice) && fileChoice > 0 && fileChoice <= files.Length)
-                    //            {
-                    //                string selectedFile = files[fileChoice - 1];
-                    //                LeggiFile(selectedFile);
-                    //            }
-                    //            else
-                    //            {
-                    //                Console.WriteLine("Selezione non valida. Riprova.");
-                    //            }
-                    //        }
-                    //        else
-                    //        {
-                    //            Console.WriteLine("Nessun file con estensione .txt trovato nella directory specificata.");
-                    //        }
-                    //    }
-                    //    else
-                    //    {
-                    //        Console.WriteLine("La directory non esiste o non è accessibile.");
-                    //    }
-                    //    break;
                     case 7:
                         Console.WriteLine("Uscita dal Menu");
                         break;
