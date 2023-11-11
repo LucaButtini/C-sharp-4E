@@ -92,10 +92,10 @@ namespace AnagrafeListe
                     case 6:
                         Console.WriteLine("=== LEGGI LOG ===");
 
-                        // Definisci le estensioni desiderate (".txt" e ".csv" in questo caso)
+                        //  estensioni desiderate
                         string[] ext = { ".txt", ".csv" };
 
-                        // Chiamata alla funzione per ottenere e visualizzare i file con le estensioni specificate
+                        // ottengo e visualizzare i file con le estensioni specificate
                         GetFiles(Path.Combine(Environment.CurrentDirectory, "logbin"), ext);
                         break;
                     case 7:
@@ -110,6 +110,7 @@ namespace AnagrafeListe
                             csv.WriteLine(strCsv);
                         }
                         csv.Close();
+                        Console.WriteLine("File csv");
                         break;
                     case 8:
                         StreamReader csvRV = new StreamReader(Environment.CurrentDirectory + @"\logbin\logfile.csv");
@@ -126,35 +127,32 @@ namespace AnagrafeListe
                             person.Nome = splitted[2];
                             person.Nascita = DateTime.Parse(splitted[3]);
 
-                            // Aggiungi un controllo per gestire lo stato civile
-                            if (Enum.TryParse(splitted[4].Trim(), true, out StatoCivile statoCivile))
+                            if (Enum.TryParse(splitted[4].Trim(), true, out StatoCivile statoCivile)) // Il parametro true indica di ignorare la distinzione tra maiuscole e minuscole durante la conversione.
                             {
                                 person.Stato = statoCivile;
                             }
                             else
                             {
-                                // Gestisci uno stato civile non riconosciuto
+                                // se stato civile non riconosciuto
                                 Console.WriteLine($"Stato civile non riconosciuto: {splitted[4]}");
-                                continue; // Salta l'iterazione corrente se lo stato civile non è riconosciuto
                             }
 
                             person.Cittadinanza = splitted[5];
 
-                            // Aggiungi un controllo per gestire il genere
+
                             if (Enum.TryParse(splitted[6].Trim(), true, out Sesso genere))
                             {
                                 person.Genere = genere;
                             }
                             else
                             {
-                                // Gestisci un genere non riconosciuto
+                                // se genere non riconosciuto
                                 Console.WriteLine($"Genere non riconosciuto: {splitted[6]}");
-                                //continue; // Salta l'iterazione corrente se il genere non è riconosciuto
                             }
 
-                            persone.Add(person); // Aggiungi la persona alla lista
+                            persone.Add(person); // aggiungo persona alla lista
                         }
-
+                        Console.WriteLine("Importazione avvenuta con successo");
                         csvRV.Close();
                         break;
 
@@ -239,11 +237,11 @@ namespace AnagrafeListe
                     break;
             }
 
-            // Aggiungi la nuova persona alla lista e imposta lo stato come Occupato
+            // Aggiungo la nuova persona alla lista e imposta lo stato come Occupato
             p.Add(nuovaPersona);
             stato.Add(StatoElemento.Occupato);
 
-            // Ora, dopo aver completato il processo di inserimento, scrivi il file di log
+            // scrittura del file di log
             ScriviFile(Path.Combine(Environment.CurrentDirectory, "logbin", "log.txt"), nuovaPersona.ToString());
             j++;
         }
@@ -251,7 +249,7 @@ namespace AnagrafeListe
         static DateTime CheckData()
         {
             bool checkDate = false;
-            DateTime dataNascita = DateTime.MinValue; //val più piccolo
+            DateTime dataNascita = DateTime.MinValue; //MinValue val più piccolo
 
             while (!checkDate)
             {
@@ -271,17 +269,17 @@ namespace AnagrafeListe
         }
 
 
-        static int TrovaElementoLibero(List<StatoElemento> stato)
-        {
-            for (int i = 0; i < stato.Count; i++)
-            {
-                if (stato[i] == StatoElemento.Libero)
-                {
-                    return i; // Ritorna l'indice dell'elemento libero
-                }
-            }
-            return -1; // Nessun elemento libero trovato
-        }
+        //static int TrovaElementoLibero(List<StatoElemento> stato)
+        //{
+        //    for (int i = 0; i < stato.Count; i++)
+        //    {
+        //        if (stato[i] == StatoElemento.Libero)
+        //        {
+        //            return i; // Ritorna l'indice dell'elemento libero
+        //        }
+        //    }
+        //    return -1; // Nessun elemento libero trovato
+        //}
 
 
         static void StampaMenu(string[] menu)
@@ -515,18 +513,18 @@ namespace AnagrafeListe
                 // Filtra i file con estensioni specificate
                 foreach (string file in files)
                 {
-                    bool estensioneCorrispondente = false;
+                    bool ext = false;
 
                     foreach (string e in estensioni)
                     {
+                        // Verifica se il nome del file termina con l'estensione corrente, ignorando maiuscole/minuscole
                         if (file.EndsWith(e, true, null))
                         {
-                            estensioneCorrispondente = true;
-                            break; // Esce dal loop interno se l'estensione è stata trovata
+                            ext = true;
                         }
                     }
 
-                    if (estensioneCorrispondente)
+                    if (ext)
                     {
                         listaFile.Add(file);
                     }
@@ -546,18 +544,18 @@ namespace AnagrafeListe
                     }
 
                     int sceltaFile;
-                    Console.WriteLine("Seleziona un file digitando il numero corrispondente:");
+                    Console.WriteLine("Seleziona il numero del file desiderato:");
 
                     string inputUtente = Console.ReadLine();
 
                     // Verifica se l'input è un numero valido
-                    if (int.TryParse(inputUtente, out sceltaFile) && sceltaFile > 0 && sceltaFile <= listaFile.Count)
+                    if (int.TryParse(inputUtente, out sceltaFile) && sceltaFile > 0 && sceltaFile <= listaFile.Count) //Se il TryParse ha successo e il numero è maggiore di zero e minore o
+                                                                                                                      //uguale al numero di file nella lista, allora la selezione dell'utente è considerata valida.
                     {
                         string fileSelezionato = listaFile[sceltaFile - 1];
 
                         // Legge il contenuto del file selezionato
                         LeggiFile(fileSelezionato);
-                        //return;
                     }
                     else
                     {
@@ -572,18 +570,5 @@ namespace AnagrafeListe
             }
         }
 
-
-
-
-        //    static void GetFiles(string directory)
-        //    {
-        //        string[] files;
-        //        files = Directory.GetFiles(directory);
-        //        foreach (string file in files)
-        //        {
-        //            Console.WriteLine(file);
-        //        }
-        //        Console.WriteLine(Path.GetFileName(files[0]));
-        //    }
     }
 }
