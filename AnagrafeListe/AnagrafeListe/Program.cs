@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace AnagrafeListe
 {
@@ -45,7 +46,7 @@ namespace AnagrafeListe
     {
         static void Main(string[] args)
         {
-            string[] opzioni1 = { "Inserimento", "Visualizza", "Età", "Modifica Stato", "Cancella utente", "Leggi Log", "Esci dal Menu" };
+            string[] opzioni1 = { "Inserimento", "Visualizza", "Età", "Modifica Stato", "Cancella utente", "Leggi Log", "CSV", "Importa CSV", "Esci dal Menu" };
             string[] opzioni2 = { "Persona", "Archivio" };
             List<Persona> persone = new List<Persona>();
             List<StatoElemento> statoElementi = new List<StatoElemento>();
@@ -89,62 +90,75 @@ namespace AnagrafeListe
                         EliminaUtente(persone, statoElementi, cf);
                         break;
                     case 6:
-                        // Creazione di un nome univoco per il file di log basato sul timestamp corrente
-                        //string logFileName = $"Log_{DateTime.Now:yyyyMMdd_HHmmss}.log";
-                        //Quando la riga di codice viene eseguita, si genera una stringa che combina la parte fissa "LogFile_" con l'istante di tempo attuale formattato secondo il modello "yyyyMMdd_HHmmss", seguito dall'estensione .log. Ad esempio, se l'istante attuale fosse il 30 ottobre 2023 alle ore 16:54:01, il logFileName generato sarebbe qualcosa del tipo LogFile_20231030_165401.log.
-                        // Definizione del percorso del nuovo file di log nella directory 'logbin'
-                        //string logFilePath = Path.Combine(Environment.CurrentDirectory, "logbin", logFileName);
+                        Console.WriteLine("=== LEGGI LOG ===");
 
-                        // Scrivi i dettagli nel nuovo file di log
-                        // Definizione del percorso della directory 'logbin' nella directory corrente
-                        string directory = Path.Combine(Environment.CurrentDirectory, "logbin");
+                        // Definisci le estensioni desiderate (".txt" e ".csv" in questo caso)
+                        string[] ext = { ".txt", ".csv" };
 
-                        // Chiamata a una funzione che elenca i file presenti nella directory 'logbin'
-                        GetFiles(directory);
-
-                        // Verifica se la directory 'logbin' esiste
-                        if (Directory.Exists(directory))
+                        // Chiamata alla funzione per ottenere e visualizzare i file con le estensioni specificate
+                        GetFiles(Path.Combine(Environment.CurrentDirectory, "logbin"), ext);
+                        break;
+                    case 7:
+                        StreamWriter csv = new StreamWriter(Environment.CurrentDirectory + @"\logbin\logfile.csv", true);//Se true o false sovracrive o crea il file
+                        string strCsv;
+                        foreach (Persona p1 in persone)//Metto la struttura dati
                         {
-                            // Ottiene tutti i file con estensione '.txt' all'interno della directory
-                            string[] files = Directory.GetFiles(directory, "*.txt");
+                            //strCsv = string.Format($"Codice fiscale:{p1.cf}, Cognome: {p1.cognome}, Nome: {p1.nome}, Data di nascita: {p1.nascita.ToShortDateString()}, " +
+                            //$"Stato civile: {p1.stato}, Cittadinanza: {p1.cittadinanza}, Genere: {p1.genere}");
+                            strCsv = string.Format($"{p1.Id},{p1.Cognome},{p1.Nome},{p1.Nascita.ToShortDateString()}," +
+                            $"{p1.Stato},{p1.Cittadinanza},{p1.Genere}");
+                            csv.WriteLine(strCsv);
+                        }
+                        csv.Close();
+                        break;
+                    case 8:
+                        StreamReader csvRV = new StreamReader(Environment.CurrentDirectory + @"\logbin\logfile.csv");
+                        string strCsvRV;
 
-                            // Se ci sono file con estensione '.txt' presenti nella directory
-                            if (files.Length > 0)
+                        while ((strCsvRV = csvRV.ReadLine()) != null)
+                        {
+                            Persona person = new Persona(); // Crea una nuova istanza di Persona per ogni riga del CSV
+
+                            string[] splitted = strCsvRV.Split(',');
+
+                            person.Id = splitted[0];
+                            person.Cognome = splitted[1];
+                            person.Nome = splitted[2];
+                            person.Nascita = DateTime.Parse(splitted[3]);
+
+                            // Aggiungi un controllo per gestire lo stato civile
+                            if (Enum.TryParse(splitted[4].Trim(), true, out StatoCivile statoCivile))
                             {
-                                // Ciclo for per ogni file trovato
-                                for (int i = 0; i < files.Length; i++)
-                                {
-                                    // Ottiene la data di creazione del file
-                                    DateTime dataCreazione = File.GetCreationTime(files[i]);
-
-                                    // Stampa l'indice (partendo da 1), la data di creazione e il nome del file
-                                    Console.WriteLine($"{i + 1}: {dataCreazione} - {Path.GetFileName(files[i])}");
-                                }
-                                int fileChoice;
-                                Console.WriteLine("Seleziona un file digitando il numero corrispondente:");
-                                if (int.TryParse(Console.ReadLine(), out fileChoice) && fileChoice > 0 && fileChoice <= files.Length)
-                                {
-                                    string selectedFile = files[fileChoice - 1];
-                                    LeggiFile(selectedFile);
-                                }
-                                else
-                                {
-                                    Console.WriteLine("Selezione non valida. Riprova.");
-                                }
+                                person.Stato = statoCivile;
                             }
                             else
                             {
-                                // Messaggio in caso non ci siano file con estensione '.txt' nella directory
-                                Console.WriteLine("Nessun file con estensione .txt trovato nella directory specificata.");
+                                // Gestisci uno stato civile non riconosciuto
+                                Console.WriteLine($"Stato civile non riconosciuto: {splitted[4]}");
+                                continue; // Salta l'iterazione corrente se lo stato civile non è riconosciuto
                             }
+
+                            person.Cittadinanza = splitted[5];
+
+                            // Aggiungi un controllo per gestire il genere
+                            if (Enum.TryParse(splitted[6].Trim(), true, out Sesso genere))
+                            {
+                                person.Genere = genere;
+                            }
+                            else
+                            {
+                                // Gestisci un genere non riconosciuto
+                                Console.WriteLine($"Genere non riconosciuto: {splitted[6]}");
+                                //continue; // Salta l'iterazione corrente se il genere non è riconosciuto
+                            }
+
+                            persone.Add(person); // Aggiungi la persona alla lista
                         }
-                        else
-                        {
-                            // Messaggio se la directory 'logbin' non esiste o non è accessibile
-                            Console.WriteLine("La directory non esiste o non è accessibile.");
-                        }
+
+                        csvRV.Close();
                         break;
-                    case 7:
+
+                    case 9:
                         Console.WriteLine("Uscita dal Menu");
                         break;
                     default:
@@ -152,13 +166,13 @@ namespace AnagrafeListe
                         break;
                 }
 
-                if (scelta1 != 7)
+                if (scelta1 != 9)
                 {
                     Console.WriteLine("Premi Invio per tornare al Menu.");
                     Console.ReadLine();
                     Console.Clear();
                 }
-            } while (scelta1 != 7);
+            } while (scelta1 != 9);
         }
 
         static void LeggiPersona(List<Persona> p, List<StatoElemento> stato, ref int j)
@@ -181,16 +195,8 @@ namespace AnagrafeListe
             checkDate = false;
             while (!checkDate)
             {
-                try
-                {
-                    Console.WriteLine("Inserisci data di nascita (formato: dd/mm/yyyy): ");
-                    nuovaPersona.Nascita = DateTime.Parse(Console.ReadLine());
-                    checkDate = true;
-                }
-                catch (Exception)
-                {
-                    Console.WriteLine("Formato data non valido. Inserisci nel formato corretto (dd/mm/yyyy).");
-                }
+                nuovaPersona.Nascita = CheckData();
+                checkDate = true;
             }
 
             Console.WriteLine("Inserisci id: ");
@@ -240,6 +246,28 @@ namespace AnagrafeListe
             // Ora, dopo aver completato il processo di inserimento, scrivi il file di log
             ScriviFile(Path.Combine(Environment.CurrentDirectory, "logbin", "log.txt"), nuovaPersona.ToString());
             j++;
+        }
+
+        static DateTime CheckData()
+        {
+            bool checkDate = false;
+            DateTime dataNascita = DateTime.MinValue;
+
+            while (!checkDate)
+            {
+                try
+                {
+                    Console.WriteLine("Inserisci data di nascita (formato: dd/mm/yyyy): ");
+                    dataNascita = DateTime.Parse(Console.ReadLine());
+                    checkDate = true;
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("Formato data non valido. Inserisci nel formato corretto (dd/mm/yyyy).");
+                }
+            }
+
+            return dataNascita;
         }
 
 
@@ -310,12 +338,25 @@ namespace AnagrafeListe
 
         static void ModificaStato(List<Persona> persone, List<StatoElemento> stato, string cf)
         {
-            for (int i = 0; i < persone.Count; i++)
+            // Verifica se l'ID è valido
+            bool id = CheckId(cf, persone);
+
+            if (id)
             {
-                if (stato[i] == StatoElemento.Occupato && persone[i].Id == cf)
+                int index = -1;
+
+                for (int i = 0; i < persone.Count; i++)
+                {
+                    if (persone[i].Id == cf && stato[i] == StatoElemento.Occupato)
+                    {
+                        index = i;
+                        //break;
+                    }
+                }
+
+                if (index != -1)
                 {
                     int scelta = MenuStatoCivile();
-
                     StatoCivile nuovoStato;
 
                     switch (scelta)
@@ -340,27 +381,23 @@ namespace AnagrafeListe
                             return;
                     }
 
-                    // Modifica lo stato della persona e assegna l'oggetto persona modificato
-                    Persona personaModificata = persone[i];
+                    Persona personaModificata = persone[index];
                     personaModificata.Stato = nuovoStato;
-
-                    // Reimposta l'elemento nella lista
-                    persone[i] = personaModificata;
+                    persone[index] = personaModificata;
 
                     Console.WriteLine("Stato civile modificato con successo.");
                     ScriviFile(Path.Combine(Environment.CurrentDirectory, "logbin", "log.txt"), $"Stato modificato: {personaModificata.ToString()}");
-                    return;
+                }
+                else
+                {
+                    Console.WriteLine("Nessuna persona trovata con questo codice fiscale o lo stato non è 'Occupato'.");
                 }
             }
-            Console.WriteLine("Nessuna persona trovata con questo codice fiscale o lo stato non è 'Occupato'.");
+            else
+            {
+                Console.WriteLine("ID non valido.");
+            }
         }
-
-        //static Persona ModificaStatoPersona(Persona persona, StatoCivile nuovoStato)
-        //{
-        //    persona.Stato = nuovoStato;
-        //    return persona;
-        //}
-
 
 
         static void EliminaUtente(List<Persona> persone, List<StatoElemento> stato, string cf)
@@ -464,15 +501,89 @@ namespace AnagrafeListe
                 linea = sr.ReadLine();
             }
         }
-        static void GetFiles(string directory)
+        static void GetFiles(string directory, string[] estensioni)
         {
-            string[] files;
-            files = Directory.GetFiles(directory);
-            foreach (string file in files)
+            // Verifica se la directory esiste
+            if (Directory.Exists(directory))
             {
-                Console.WriteLine(file);
+                // Ottiene tutti i file presenti nella directory
+                string[] files = Directory.GetFiles(directory);
+
+                // Lista per memorizzare i file con estensioni desiderate
+                List<string> listaFile = new List<string>();
+
+                // Filtra i file con estensioni specificate
+                foreach (string file in files)
+                {
+                    bool estensioneCorrispondente = false;
+
+                    foreach (string e in estensioni)
+                    {
+                        if (file.EndsWith(e, true, null))
+                        {
+                            estensioneCorrispondente = true;
+                            break; // Esce dal loop interno se l'estensione è stata trovata
+                        }
+                    }
+
+                    if (estensioneCorrispondente)
+                    {
+                        listaFile.Add(file);
+                    }
+                }
+
+                // Se ci sono file presenti nella directory
+                if (listaFile.Count > 0)
+                {
+                    // Ciclo for per ogni file trovato
+                    for (int i = 0; i < listaFile.Count; i++)
+                    {
+                        // Ottiene la data di creazione del file
+                        DateTime dataCreazione = File.GetCreationTime(listaFile[i]);
+
+                        // Stampa l'indice (partendo da 1), la data di creazione e il nome del file
+                        Console.WriteLine($"{i + 1}: {dataCreazione} - {Path.GetFileName(listaFile[i])}");
+                    }
+
+                    int sceltaFile;
+                    Console.WriteLine("Seleziona un file digitando il numero corrispondente:");
+
+                    string inputUtente = Console.ReadLine();
+
+                    // Verifica se l'input è un numero valido
+                    if (int.TryParse(inputUtente, out sceltaFile) && sceltaFile > 0 && sceltaFile <= listaFile.Count)
+                    {
+                        string fileSelezionato = listaFile[sceltaFile - 1];
+
+                        // Legge il contenuto del file selezionato
+                        LeggiFile(fileSelezionato);
+                        //return;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Selezione non valida. Riprova.");
+                    }
+                }
+                else
+                {
+                    // Messaggio se la directory non esiste o non è accessibile
+                    Console.WriteLine("La directory non esiste o non è accessibile.");
+                }
             }
-            Console.WriteLine(Path.GetFileName(files[0]));
         }
+
+
+
+
+        //    static void GetFiles(string directory)
+        //    {
+        //        string[] files;
+        //        files = Directory.GetFiles(directory);
+        //        foreach (string file in files)
+        //        {
+        //            Console.WriteLine(file);
+        //        }
+        //        Console.WriteLine(Path.GetFileName(files[0]));
+        //    }
     }
 }
