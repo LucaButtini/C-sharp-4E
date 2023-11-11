@@ -251,7 +251,7 @@ namespace AnagrafeListe
         static DateTime CheckData()
         {
             bool checkDate = false;
-            DateTime dataNascita = DateTime.MinValue;
+            DateTime dataNascita = DateTime.MinValue; //val più piccolo
 
             while (!checkDate)
             {
