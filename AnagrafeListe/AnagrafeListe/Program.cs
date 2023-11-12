@@ -269,19 +269,6 @@ namespace AnagrafeListe
         }
 
 
-        //static int TrovaElementoLibero(List<StatoElemento> stato)
-        //{
-        //    for (int i = 0; i < stato.Count; i++)
-        //    {
-        //        if (stato[i] == StatoElemento.Libero)
-        //        {
-        //            return i; // Ritorna l'indice dell'elemento libero
-        //        }
-        //    }
-        //    return -1; // Nessun elemento libero trovato
-        //}
-
-
         static void StampaMenu(string[] menu)
         {
             for (int i = 0; i < menu.Length; i++)
@@ -311,11 +298,11 @@ namespace AnagrafeListe
                     DateTime dataCorrente = DateTime.Now;
                     int eta = CalcolaAnni(persona.Nascita, dataCorrente);
                     Console.WriteLine($"Persona: {persona.Nome} {persona.Cognome}, Età: {eta}");
-                    return;
                 }
-            }
+                else
+                    Console.WriteLine("Nessuna persona trovata con questo codice fiscale");
 
-            Console.WriteLine("Nessuna persona trovata con questo codice fiscale");
+            }
         }
 
 
