@@ -249,18 +249,15 @@ namespace PostVerListeStudenti
                 Console.WriteLine(output[i]);
                 Console.WriteLine();
             }
-
-
         }
+
         static bool CheckAlunno(string nome, string cognome, List<Studente> classe)
         {
-            foreach (Studente st in classe)
-            {
-                if (st.nome == nome && st.cognome == cognome)
-                    return true;
-            }
-            return false;
+            //find ritorna la prima occorrenza che soddisfa la condizione.
+            //find passa il risultato a contains che controlla se è presente nella lista
+            return classe.Contains(classe.Find(st => st.nome == nome && st.cognome == cognome));
         }
+
         static void Maggiorenni(List<Studente> classe, List<Studente> StMaggiorenni)
         {
             DateTime oggi = DateTime.Now;
@@ -268,6 +265,5 @@ namespace PostVerListeStudenti
             Console.WriteLine("Studenti maggiorenni:");
             Visualizza(StMaggiorenni);
         }
-
     }
 }
