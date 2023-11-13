@@ -1,7 +1,0 @@
-C:\Users\Emilio\Desktop\Itis\C#\PrepVerAnagraficaAgain\PrepVerAnagraficaAgain\bin\Debug\PrepVerAnagraficaAgain.exe.config
-C:\Users\Emilio\Desktop\Itis\C#\PrepVerAnagraficaAgain\PrepVerAnagraficaAgain\bin\Debug\PrepVerAnagraficaAgain.exe
-C:\Users\Emilio\Desktop\Itis\C#\PrepVerAnagraficaAgain\PrepVerAnagraficaAgain\bin\Debug\PrepVerAnagraficaAgain.pdb
-C:\Users\Emilio\Desktop\Itis\C#\PrepVerAnagraficaAgain\PrepVerAnagraficaAgain\obj\Debug\PrepVerAnagraficaAgain.csproj.AssemblyReference.cache
-C:\Users\Emilio\Desktop\Itis\C#\PrepVerAnagraficaAgain\PrepVerAnagraficaAgain\obj\Debug\PrepVerAnagraficaAgain.csproj.CoreCompileInputs.cache
-C:\Users\Emilio\Desktop\Itis\C#\PrepVerAnagraficaAgain\PrepVerAnagraficaAgain\obj\Debug\PrepVerAnagraficaAgain.exe
-C:\Users\Emilio\Desktop\Itis\C#\PrepVerAnagraficaAgain\PrepVerAnagraficaAgain\obj\Debug\PrepVerAnagraficaAgain.pdb

@@ -335,7 +335,6 @@ namespace AnagrafeListe
                     if (persone[i].Id == cf && stato[i] == StatoElemento.Occupato)
                     {
                         index = i;
-                        //break;
                     }
                 }
 
