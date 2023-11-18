@@ -20,12 +20,6 @@ namespace AnagrafeListe
         Vedovo,
         Separato
     }
-    enum StatoElemento //stato anagrafica
-    {
-        Libero,
-        Occupato,
-        Cancellato
-    }
     struct Persona
     {
         public string Id; // Codice fiscale
@@ -49,7 +43,6 @@ namespace AnagrafeListe
             string[] opzioni1 = { "Inserimento", "Visualizza", "Età", "Modifica Stato", "Cancella utente", "Leggi Log", "CSV", "Importa CSV", "Esci dal Menu" };
             string[] opzioni2 = { "Persona", "Archivio" };
             List<Persona> persone = new List<Persona>();
-            List<StatoElemento> statoElementi = new List<StatoElemento>();
             int index = 0;
             int scelta1;
             string cf;
@@ -63,31 +56,31 @@ namespace AnagrafeListe
                 switch (scelta1)
                 {
                     case 1:
-                        LeggiPersona(persone, statoElementi, ref index);
+                        LeggiPersona(persone, ref index);
                         break;
                     case 2:
                         Console.WriteLine();
                         Console.WriteLine("=====ANAGRAFICA=====");
-                        StampaPersone(persone, statoElementi);
+                        StampaPersone(persone);
                         break;
                     case 3:
                         Console.WriteLine("=== CALCOLO DELL'ETÀ ===");
                         Console.WriteLine("Inserisci il codice fiscale della persona:");
                         cf = Console.ReadLine();
-                        TrovaEdElencaPersona(persone, statoElementi, cf);
+                        TrovaEdElencaPersona(persone, cf);
                         break;
 
                     case 4:
                         Console.WriteLine("===MODIFICA STATO CIVILE=== ");
                         Console.WriteLine("Inserisci il codice fiscale della persona:");
                         cf = Console.ReadLine();
-                        ModificaStato(persone, statoElementi, cf);
+                        ModificaStato(persone, cf);
                         break;
                     case 5:
                         Console.WriteLine("===CANCELLA UTENTE===");
                         Console.WriteLine("Inserisci il codice fiscale della persona da cancellare:");
                         cf = Console.ReadLine();
-                        EliminaUtente(persone, statoElementi, cf);
+                        EliminaUtente(persone, cf);
                         break;
                     case 6:
                         Console.WriteLine("=== LEGGI LOG ===");
@@ -118,7 +111,7 @@ namespace AnagrafeListe
 
                         while ((strCsvRV = csvRV.ReadLine()) != null)
                         {
-                            Persona person = new Persona(); // Crea una nuova istanza di Persona per ogni riga del CSV
+                            Persona person = new Persona();
 
                             string[] splitted = strCsvRV.Split(',');
 
@@ -127,18 +120,16 @@ namespace AnagrafeListe
                             person.Nome = splitted[2];
                             person.Nascita = DateTime.Parse(splitted[3]);
 
-                            if (Enum.TryParse(splitted[4].Trim(), true, out StatoCivile statoCivile)) // Il parametro true indica di ignorare la distinzione tra maiuscole e minuscole durante la conversione.
+                            if (Enum.TryParse(splitted[4].Trim(), true, out StatoCivile statoCivile))
                             {
                                 person.Stato = statoCivile;
                             }
                             else
                             {
-                                // se stato civile non riconosciuto
                                 Console.WriteLine($"Stato civile non riconosciuto: {splitted[4]}");
                             }
 
                             person.Cittadinanza = splitted[5];
-
 
                             if (Enum.TryParse(splitted[6].Trim(), true, out Sesso genere))
                             {
@@ -146,11 +137,10 @@ namespace AnagrafeListe
                             }
                             else
                             {
-                                // se genere non riconosciuto
                                 Console.WriteLine($"Genere non riconosciuto: {splitted[6]}");
                             }
 
-                            persone.Add(person); // aggiungo persona alla lista
+                            persone.Add(person);
                         }
                         Console.WriteLine("Importazione avvenuta con successo");
                         csvRV.Close();
@@ -173,7 +163,7 @@ namespace AnagrafeListe
             } while (scelta1 != 9);
         }
 
-        static void LeggiPersona(List<Persona> p, List<StatoElemento> stato, ref int j)
+        static void LeggiPersona(List<Persona> p, ref int j)
         {
             Persona nuovaPersona = new Persona(); // Crea una nuova istanza di Persona
 
@@ -239,7 +229,7 @@ namespace AnagrafeListe
 
             // Aggiungo la nuova persona alla lista e imposta lo stato come Occupato
             p.Add(nuovaPersona);
-            stato.Add(StatoElemento.Occupato);
+
 
             // scrittura del file di log
             ScriviFile(Path.Combine(Environment.CurrentDirectory, "logbin", "log.txt"), nuovaPersona.ToString());
@@ -275,25 +265,24 @@ namespace AnagrafeListe
                 Console.WriteLine($"[{i + 1}] {menu[i]}");
         }
 
-        static void StampaPersone(List<Persona> persone, List<StatoElemento> stato)
+        static void StampaPersone(List<Persona> persone)
         {
-            for (int i = 0; i < stato.Count; i++)
+            for (int i = 0; i < persone.Count; i++)
             {
-                if (stato[i] == StatoElemento.Occupato || stato[i] == StatoElemento.Cancellato)
-                {
-                    Console.WriteLine($"Persona {i + 1}: {persone[i]}, Stato Elemento: {stato[i]}");
-                }
+
+                Console.WriteLine($"Persona {i + 1}: {persone[i]}");
+
             }
         }
 
 
 
-        static void TrovaEdElencaPersona(List<Persona> persone, List<StatoElemento> stato, string cf)
+        static void TrovaEdElencaPersona(List<Persona> persone, string cf)
         {
             foreach (var persona in persone)
             {
                 int index = persone.IndexOf(persona);
-                if (index != -1 && stato[index] == StatoElemento.Occupato && persona.Id == cf)
+                if (index != -1 && persona.Id == cf)
                 {
                     DateTime dataCorrente = DateTime.Now;
                     int eta = CalcolaAnni(persona.Nascita, dataCorrente);
@@ -307,13 +296,13 @@ namespace AnagrafeListe
 
 
 
-        static void Archivio(List<Persona> persone, List<StatoElemento> stato)
+        static void Archivio(List<Persona> persone)
         {
             DateTime dataCorrente = DateTime.Now;
             foreach (var persona in persone)
             {
                 int index = persone.IndexOf(persona);
-                if (index != -1 && stato[index] == StatoElemento.Occupato)
+                if (index != -1)
                 {
                     int eta = CalcolaAnni(persona.Nascita, dataCorrente);
                     Console.WriteLine($"Persona: {persona.Nome} {persona.Cognome}, Età: {eta}");
@@ -321,7 +310,7 @@ namespace AnagrafeListe
             }
         }
 
-        static void ModificaStato(List<Persona> persone, List<StatoElemento> stato, string cf)
+        static void ModificaStato(List<Persona> persone, string cf)
         {
             // Verifica se l'ID è valido
             bool id = CheckId(cf, persone);
@@ -332,7 +321,7 @@ namespace AnagrafeListe
 
                 for (int i = 0; i < persone.Count; i++)
                 {
-                    if (persone[i].Id == cf && stato[i] == StatoElemento.Occupato)
+                    if (persone[i].Id == cf)
                     {
                         index = i;
                     }
@@ -383,23 +372,33 @@ namespace AnagrafeListe
             }
         }
 
-
-        static void EliminaUtente(List<Persona> persone, List<StatoElemento> stato, string cf)
+        static void EliminaUtente(List<Persona> persone, string cf)
         {
-            for (int i = 0; i < persone.Count; i++)
+            bool idValido = CheckId(cf, persone);
+
+            if (idValido)
             {
-                if (stato[i] == StatoElemento.Occupato && persone[i].Id == cf)
+                int index = persone.FindIndex(p => p.Id == cf);
+
+                if (index != -1)
                 {
-                    stato[i] = StatoElemento.Cancellato;
+                    Persona personaRimossa = persone[index];
+                    persone.RemoveAt(index);
                     Console.WriteLine("Utente eliminato con successo.");
 
-                    // Scrivi la cancellazione nel file di log
-                    ScriviFile(Path.Combine(Environment.CurrentDirectory, "logbin", "log.txt"), $"Utente eliminato: {persone[i].ToString()}");
-                    return;
+                    ScriviFile(Path.Combine(Environment.CurrentDirectory, "logbin", "log.txt"), $"Utente eliminato: {personaRimossa.ToString()}");
+                }
+                else
+                {
+                    Console.WriteLine("Nessuna persona trovata con questo codice fiscale.");
                 }
             }
-            Console.WriteLine("Nessuna persona trovata con questo codice fiscale o lo stato non è 'Occupato'.");
+            else
+            {
+                Console.WriteLine("ID non valido.");
+            }
         }
+
 
 
         static bool CheckId(string id, List<Persona> persone)
