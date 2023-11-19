@@ -44,7 +44,7 @@ namespace AnagrafeListe
             string[] opzioni2 = { "Persona", "Archivio" };
             List<Persona> persone = new List<Persona>();
             int index = 0;
-            int scelta1;
+            int scelta1, scelta2;
             string cf;
 
             do
@@ -64,10 +64,26 @@ namespace AnagrafeListe
                         StampaPersone(persone);
                         break;
                     case 3:
-                        Console.WriteLine("=== CALCOLO DELL'ETÀ ===");
-                        Console.WriteLine("Inserisci il codice fiscale della persona:");
-                        cf = Console.ReadLine();
-                        TrovaEdElencaPersona(persone, cf);
+                        Console.WriteLine("===CALCOLO ETÀ===");
+                        StampaMenu(opzioni2);
+                        Console.WriteLine("Inserisci la scelta");
+                        int.TryParse(Console.ReadLine(), out scelta2);
+                        while (scelta2 < 1 || scelta2 > opzioni2.Length)
+                        {
+                            Console.WriteLine("Inserisci un opzione valida");
+                            int.TryParse(Console.ReadLine(), out scelta2);
+                        }
+                        if (scelta2 == 1)
+                        {
+                            Console.WriteLine("Inserisci il codice fiscale della persona la quale si desidera sapere l'età");
+                            cf = Console.ReadLine();
+                            GetEtaPersona(persone, cf);
+                        }
+                        if (scelta2 == 2)
+                        {
+                            Console.WriteLine("===ARCHIVIO===");
+                            Archivio(persone);
+                        }
                         break;
 
                     case 4:
@@ -275,24 +291,23 @@ namespace AnagrafeListe
             }
         }
 
-
-
-        static void TrovaEdElencaPersona(List<Persona> persone, string cf)
+        static void GetEtaPersona(List<Persona> persone, string cf)
         {
-            foreach (var persona in persone)
-            {
-                int index = persone.IndexOf(persona);
-                if (index != -1 && persona.Id == cf)
-                {
-                    DateTime dataCorrente = DateTime.Now;
-                    int eta = CalcolaAnni(persona.Nascita, dataCorrente);
-                    Console.WriteLine($"Persona: {persona.Nome} {persona.Cognome}, Età: {eta}");
-                }
-                else
-                    Console.WriteLine("Nessuna persona trovata con questo codice fiscale");
+            bool idValido = CheckId(cf, persone);
 
+            if (idValido)
+            {
+                int index = persone.FindIndex(p => p.Id == cf);
+                DateTime dataCorrente = DateTime.Now;
+                int eta = CalcolaAnni(persone[index].Nascita, dataCorrente);
+                Console.WriteLine($"Persona: {persone[index].Nome} {persone[index].Cognome}, Età: {eta}");
+            }
+            else
+            {
+                Console.WriteLine("Codice fiscale non valido o persona non trovata");
             }
         }
+
 
 
 
