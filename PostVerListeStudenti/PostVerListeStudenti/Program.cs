@@ -24,7 +24,6 @@ namespace PostVerListeStudenti
         }
         static void Main(string[] args)
         {
-            bool prova;
             List<Studente> classe = new List<Studente>();
             List<Studente> StMaggiorenni = new List<Studente>();
             int opzione;
@@ -37,12 +36,8 @@ namespace PostVerListeStudenti
                 {
                     Console.WriteLine($"[{i + 1}] {options[i]}");
                 }
-                do
-                {
-                    prova = Int32.TryParse(Console.ReadLine(), out opzione);
-                    if (!prova)
-                        Console.WriteLine("Reinserire l'opzione");
-                } while (!prova);
+
+                int.TryParse(Console.ReadLine(), out opzione);
                 if (opzione != 7)
                 {
                     Menu(opzione, classe, StMaggiorenni);

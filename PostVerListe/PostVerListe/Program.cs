@@ -23,10 +23,8 @@ namespace PostVerListe
         }
         static void Main(string[] args)
         {
-            int dim = 3, pos = 0, scelta; //dimensione array, posizione per tenere conto dell'indice della conc, scelta utente
-            string[] opzioni = { "Inserimento", "Visualizza", "Verifica km 0", "Esci" }; //array contenente le opzioni
-            //dimensione array concessionaria
-            //Auto[] concessionaria = new Auto[dim];//definizione concessionaria
+            int dim = 3, pos = 0, scelta;
+            string[] opzioni = { "Inserimento", "Visualizza", "Verifica km 0", "Esci" };
             List<Auto> concessionaria = new List<Auto>(dim);
             do
             {
@@ -108,7 +106,7 @@ namespace PostVerListe
         static void Inserimento(List<Auto> conc, ref int pos)
         {
             Auto newAuto = new Auto();
-            bool checkData = false;
+            bool checkDate = false;
             string targa = "";
             Console.WriteLine($"INSERIMENTO AUTO {pos + 1}");
             Console.WriteLine("Inserisci Targa");
@@ -122,28 +120,39 @@ namespace PostVerListe
             Console.WriteLine("Inserisci Modello");
             newAuto.modello = Console.ReadLine();
             newAuto.cilindrata = GetCilindrata();
-            while (!checkData) //controllo inserimento data nel formato corretto
+            while (!checkDate)
             {
-                try
-                {
-                    //istruzione che può sollevare eccezione
-                    Console.WriteLine("Inserisci data immatricolazione (dd/mm/yyyy)");
-                    newAuto.immatricolazione = DateTime.Parse(Console.ReadLine());
-                    checkData = true;
-                }
-                catch (Exception)
-                {
-                    Console.WriteLine("Formato data errato. La data deve essere (dd/mm/yyyy)");
-                }
+                newAuto.immatricolazione = CheckData();
+                checkDate = true;
             }
             conc.Add(newAuto);
             pos++;
         }
 
+        static DateTime CheckData()
+        {
+            bool checkDate = false;
+            DateTime dataNascita = DateTime.MinValue; //MinValue val più piccolo
 
+            while (!checkDate)
+            {
+                try
+                {
+                    Console.WriteLine("Inserisci data di nascita (formato: dd/mm/yyyy): ");
+                    dataNascita = DateTime.Parse(Console.ReadLine());
+                    checkDate = true;
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("Formato data non valido. Inserisci nel formato corretto (dd/mm/yyyy).");
+                }
+            }
+
+            return dataNascita;
+        }
         static bool CheckTarga(string targa, List<Auto> c) //metodo verifica della targa, se è presente torna true, se non lo è false
         {
-            foreach (Auto a in c) //scorro array per il controllo
+            foreach (Auto a in c) 
             {
                 if (a.targa == targa)
                     return true;
