@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,6 +11,7 @@ namespace ProvaClass
     {
         string nome, cognome;
         int media;
+        Attivita action;
 
         public void SetName(string nome)
         {
@@ -23,6 +25,14 @@ namespace ProvaClass
         public void SetMedia(int media)
         {
             this.media = media;
+        }
+        public void SetAction(Attivita action)
+        {
+            this.action = action;
+        }
+        public Attivita GetAction()
+        {
+            return this.action;
         }
         public string GetName()
         {

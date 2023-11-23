@@ -58,11 +58,42 @@ namespace ProvaClass
             studente.SetCognome(Console.ReadLine());
             Console.Write("media: ");
             studente.SetMedia(Convert.ToInt32(Console.ReadLine()));
+            string[] arr = Enum.GetNames(typeof(Attivita));
+            for (int i = 0; i < arr.Length; i++)
+            {
+                Console.WriteLine("[{0}] {1}", i + 1, arr[i]);
+            }
+            Console.WriteLine("Scegli un opzione");
+            int s;
+            int.TryParse(Console.ReadLine(), out s);
+            while (s < 1 || s > arr.Length)
+            {
+                {
+                    Console.WriteLine("Inserisci un opzione valida");
+                    int.TryParse(Console.ReadLine(), out s);
+                }
+            }
+            switch (s)
+            {
+                case 1:
+                    studente.SetAction(Attivita.legge);
+                    break;
+                case 2:
+                    studente.SetAction(Attivita.scrive);
+                    break;
+                case 3:
+                    studente.SetAction(Attivita.mangia);
+                    break;
+                case 4:
+                    studente.SetAction(Attivita.nero);
+                    break;
+            }
             studenti.Add(studente);
             pos++;
         }
         static void Visualizza(List<Studente> s)
         {
+            Console.ForegroundColor = ConsoleColor.Cyan;
             for (int i = 0; i < s.Count; i++)
             {
                 Console.WriteLine("Nome");
@@ -71,8 +102,11 @@ namespace ProvaClass
                 Console.WriteLine(s[i].GetCognome());
                 Console.WriteLine("Media");
                 Console.WriteLine(s[i].GetMedia());
+                Console.WriteLine("attività");
+                Console.WriteLine(s[i].GetAction());
                 Console.WriteLine("=======================================");
             }
+            Console.ForegroundColor = ConsoleColor.White;
         }
     }
 }
