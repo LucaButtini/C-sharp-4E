@@ -1,8 +1,8 @@
 ﻿namespace ZooDiCasaMia
 {
-    enum mangiato
+    enum Mangiato
     {
-        deve_angiare,
+        deve_mangiare,
         già_mangiato,
         non_può_mangiare
     }

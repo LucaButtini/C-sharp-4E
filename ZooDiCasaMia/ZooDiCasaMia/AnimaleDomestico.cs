@@ -13,8 +13,7 @@ namespace ZooDiCasaMia
         string cibo;
         int quantita;
         string verso;
-        Enum mangiato;
-        //metodi set
+        Mangiato mangiato;
         public void SetSpecie(string specie)
         {
             this.specie = specie;
@@ -35,12 +34,10 @@ namespace ZooDiCasaMia
         {
             this.verso = verso;
         }
-        public void SetMangiato(Enum mangiato)
+        public void SetMangiato(Mangiato mangiato)
         {
             this.mangiato = mangiato;
         }
-
-        //metodi get
         public string GetSpecie()
         {
             return this.specie;
@@ -66,9 +63,14 @@ namespace ZooDiCasaMia
             return this.verso;
         }
 
-        public Enum GetMangiato()
+        public Mangiato GetMangiato()
         {
             return this.mangiato;
+        }
+        public bool DeveMangiare()
+        {
+            return GetMangiato() == Mangiato.deve_mangiare && GetQuantita() >= 0; //controllo che la quantità di cibo sia superiore a zero
+                                                                                  //e che l'animale e che l'oggetto abbia deve mangiare come stato
         }
     }
 }

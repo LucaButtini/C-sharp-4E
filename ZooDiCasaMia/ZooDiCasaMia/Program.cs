@@ -12,12 +12,12 @@ namespace ZooDiCasaMia
     {
         static void Main(string[] args)
         {
-            AnimaleDomestico a = new AnimaleDomestico();
             int choice;
             List<AnimaleDomestico> animali = new List<AnimaleDomestico>();
 
             do
             {
+                AnimaleDomestico a = new AnimaleDomestico(); // Nuova istanza per ogni iterazione
                 Console.WriteLine("[1] Inserimento");
                 Console.WriteLine("[2] Visualizza");
                 Console.WriteLine("[3] Esci\n");
@@ -56,11 +56,10 @@ namespace ZooDiCasaMia
             a.SetRazza(Console.ReadLine());
             Console.WriteLine("Inserisci cibo");
             a.SetCibo(Console.ReadLine());
-            Console.WriteLine("Inserisci quantita cibo");
-            a.SetQuantita(Convert.ToInt32(Console.ReadLine()));
+            a.SetQuantita(CheckQuantita(a));
             Console.WriteLine("Inserisci verso");
             a.SetVerso(Console.ReadLine());
-            mangiato statoMangiato = MenuStatoMangiato();
+            Mangiato statoMangiato = MenuStatoMangiato();
             a.SetMangiato(statoMangiato);
 
             animali.Add(a);
@@ -77,13 +76,14 @@ namespace ZooDiCasaMia
                 Console.WriteLine("Quantita Cibo: {0}", animali[i].GetQuantita());
                 Console.WriteLine("Verso: {0}", animali[i].GetVerso());
                 Console.WriteLine("Stato Mangiato: {0}", animali[i].GetMangiato());
+                CheckMangiato(animali[i]);
                 Console.WriteLine();
             }
         }
-        static mangiato MenuStatoMangiato()
+        static Mangiato MenuStatoMangiato()
         {
             int scelta = 0;
-            string[] statoMangiatoOpzioni = Enum.GetNames(typeof(mangiato));
+            string[] statoMangiatoOpzioni = Enum.GetNames(typeof(Mangiato));
 
             Console.WriteLine("Scegli uno stato di mangiato:");
             for (int i = 0; i < statoMangiatoOpzioni.Length; i++)
@@ -99,8 +99,42 @@ namespace ZooDiCasaMia
                 Console.WriteLine("Inserisci un'opzione valida");
                 int.TryParse(Console.ReadLine(), out scelta);
             }
-
-            return (mangiato)Enum.Parse(typeof(mangiato), statoMangiatoOpzioni[scelta - 1]);
+            // Converte la scelta nel valore dell'enum Mangiato con Enum.Parse.
+            // statoMangiatoOpzioni[scelta - 1] ottiene la stringa della scelta dell'utente.
+            // faccio il cast a (Mangiato) per averlo del giusto tipo.
+            return (Mangiato)Enum.Parse(typeof(Mangiato), statoMangiatoOpzioni[scelta - 1]);
         }
+        static int CheckQuantita(AnimaleDomestico animale)
+        {
+            int q = 0;
+            bool check = false;
+            while (!check)
+            {
+                try
+                {
+                    Console.WriteLine("Inserisci quantita cibo");
+                    q = Convert.ToInt32(Console.ReadLine());
+                    check = true;
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("Formato errato, reinserire");
+                }
+            }
+            return q;
+        }
+        static void CheckMangiato(AnimaleDomestico animale)
+        {
+            if (animale.DeveMangiare())
+            {
+                Console.WriteLine("L'animale deve mangiare.");
+            }
+            else
+            {
+                Console.WriteLine("L'animale non deve mangiare.");
+            }
+        }
+
+
     }
 }
