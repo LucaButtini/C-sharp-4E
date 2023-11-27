@@ -134,7 +134,5 @@ namespace ZooDiCasaMia
                 Console.WriteLine("L'animale non deve mangiare.");
             }
         }
-
-
     }
 }
