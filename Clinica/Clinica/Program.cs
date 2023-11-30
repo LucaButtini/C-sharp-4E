@@ -26,13 +26,13 @@ namespace Clinica
             Console.WriteLine();
             Console.WriteLine();
             //temperatura modificata dei pazienti
-            Medicina.CambiaTempRep(p1);
-            Medicina.CambiaTempRep(p2);
-            Medicina.CambiaTempRep(p3);
-            Medicina.CambiaTempRep(p4);
-            //stampo con la modifica
-            Console.WriteLine("==Temperatura modificata===");
+            Medicina.ModificaTemperatura("Federico", "Melon", 2);
             Medicina.StampaPazienti();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine("==pazienti con febbre==");
+            Medicina.PazientiFebbre();
+
             Console.ReadLine();
         }
     }
