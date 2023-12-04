@@ -14,11 +14,14 @@ namespace ClinicaRefactored
             int choice, pos = 0;
             bool repartoCreato = false;
             Reparto rep = new Reparto(" "); // Crea un'istanza di Reparto vuota
-            string[] options = { "Inserimento", "Visualizza", "Temperature", "Esci" };
+            string[] options = { "Inserimento", "Visualizza", "Temperature", "Paziente successivo", "Reset", "Esci" };
 
+            //successivo
+            //precedente
+            //reset
             do
             {
-                Paziente paziente = new Paziente();//istanza nuova per ogni paziente
+                Paziente paziente = new Paziente(" ", " ", 36, " ");//istanza nuova per ogni paziente
                 //stampa menu
                 for (int i = 0; i < options.Length; i++)
                     Console.WriteLine("[{0}] {1}", i + 1, options[i]);
@@ -55,13 +58,38 @@ namespace ClinicaRefactored
                             Console.WriteLine("Nessun reparto disponibile.");
                         }
                         break;
-
                     case 3:
-                        //modifica temperatura del paziente scelto
-                        Console.WriteLine("===Temperature===");
+                        // Modifica temperatura del paziente scelto
+                        Console.WriteLine("=== Temperature ===");
                         Temperatura(paziente, rep);
                         break;
+
                     case 4:
+                        Console.WriteLine("=== Paziente successivo ===");
+                        // Ottieni il paziente corrente dal reparto
+                        Paziente pazienteCorrente = rep.PazienteCorrente();
+
+                        // Visualizza le informazioni del paziente corrente
+                        if (pazienteCorrente != null)
+                        {
+                            Console.WriteLine("Paziente corrente:\n{0}", pazienteCorrente.Anagrafica());
+                        }
+
+                        // Passa al paziente successivo nel reparto
+                        if (rep.MoveNext())
+                        {
+                            Console.WriteLine("Paziente successivo");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Non ci sono più pazienti.");
+                        }
+                        break;
+
+                    case 5:
+                        rep.ResetPaziente();
+                        break;
+                    case 6:
                         Console.WriteLine("Programma finito");
                         break;
                     default:
@@ -69,14 +97,14 @@ namespace ClinicaRefactored
                         break;
                 }
 
-                if (choice != 4)
+                if (choice != 6)
                 {
                     Console.WriteLine("Premi invio per uscire");
                     Console.ReadLine();
                     Console.Clear();
                 }
 
-            } while (choice != 4);
+            } while (choice != 6);
         }
 
         static void Inserimento(Paziente p, ref int pos, Reparto r)

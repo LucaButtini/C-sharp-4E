@@ -12,8 +12,11 @@ namespace ClinicaRefactored
         string _cognome;
         double _temperatura;
         string _reparto;
-        public Paziente()
+        public Paziente(string nome, string cognome, double temperatura, string reparto)
         {
+            SetNome(nome);
+            SetCognome(cognome);
+            SetReparto(reparto);
             SetTemperatura(36);
         }
         public void SetNome(string nome)
