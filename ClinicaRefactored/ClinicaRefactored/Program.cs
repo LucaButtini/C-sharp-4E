@@ -12,16 +12,17 @@ namespace ClinicaRefactored
         static void Main(string[] args)
         {
             int choice, pos = 0;
-            bool repartoCreato = false;
-            Reparto rep = new Reparto(" "); // Crea un'istanza di Reparto vuota
-            string[] options = { "Inserimento", "Visualizza", "Temperature", "Paziente successivo", "Reset", "Esci" };
+            string np = "medicina";
+            Reparto rep = new Reparto(np); // Crea un'istanza di Reparto vuota
+
+            string[] options = { "Inserimento", "Visualizza", "Temperature", "Paziente successivo", "Reset", "Esci", "febbre" };
 
             //successivo
             //precedente
             //reset
             do
             {
-                Paziente paziente = new Paziente(" ", " ", 36, " ");//istanza nuova per ogni paziente
+
                 //stampa menu
                 for (int i = 0; i < options.Length; i++)
                     Console.WriteLine("[{0}] {1}", i + 1, options[i]);
@@ -34,36 +35,21 @@ namespace ClinicaRefactored
                     case 1:
                         Console.WriteLine("===Inserimento===");
                         //inserimento nome reparto
-                        if (!repartoCreato)
-                        {
-                            Console.Write("Inserisci il nome del reparto: ");
-                            string nomeReparto = Console.ReadLine();
-                            rep = new Reparto(nomeReparto);
-                            paziente.SetReparto(nomeReparto);//aggiungo il nome del reparto al paziente per il suo attributo
-                            repartoCreato = true;
-                        }
-                        Inserimento(paziente, ref pos, rep);
+                        Inserimento(ref pos, rep, np);
                         break;
                     case 2:
                         Console.WriteLine("==Visualizza===");
-                        if (repartoCreato)
-                        {
-                            Console.WriteLine("PAZIENTI REPARTO [{0}]", rep.GetNomeReparto());
-                            rep.StampaPazienti(); // Stampa tutti i pazienti
-                            Console.WriteLine("\nPAZIENTI CON FEBBRE");
-                            rep.PazientiFebbre(); // Stampa i pazienti con febbre
-                        }
-                        else
-                        {
-                            Console.WriteLine("Nessun reparto disponibile.");
-                        }
+
+                        Console.WriteLine("PAZIENTI REPARTO [{0}]", rep.GetNomeReparto());
+                        rep.StampaPazienti(); // Stampa tutti i pazienti
+                        Console.WriteLine("\nPAZIENTI CON FEBBRE");
+                        rep.PazientiFebbre(); // Stampa i pazienti con febbre
                         break;
                     case 3:
                         // Modifica temperatura del paziente scelto
                         Console.WriteLine("=== Temperature ===");
-                        Temperatura(paziente, rep);
+                        Temperatura(rep);
                         break;
-
                     case 4:
                         Console.WriteLine("=== Paziente successivo ===");
                         // Ottieni il paziente corrente dal reparto
@@ -92,6 +78,10 @@ namespace ClinicaRefactored
                     case 6:
                         Console.WriteLine("Programma finito");
                         break;
+                    case 7:
+                        Console.WriteLine("febbre");
+                        rep.Febbre().ForEach(f => Console.WriteLine(f.Anagrafica()));
+                        break;
                     default:
                         Console.WriteLine("Reinserire opzione");
                         break;
@@ -107,8 +97,10 @@ namespace ClinicaRefactored
             } while (choice != 6);
         }
 
-        static void Inserimento(Paziente p, ref int pos, Reparto r)
+        static void Inserimento(ref int pos, Reparto r, string np)
         {
+            Paziente p = new Paziente(" ", " ", 36, " ");//istanza nuova per ogni paziente
+            p.SetReparto(np);
             Console.WriteLine("Inserimento persona {0}\n", pos + 1);
             Console.Write("Inserisci Nome: ");
             p.SetNome(Console.ReadLine());
@@ -120,7 +112,7 @@ namespace ClinicaRefactored
             pos++;
         }
 
-        static void Temperatura(Paziente p, Reparto r)
+        static void Temperatura(Reparto r)
         {
             //nome e cog del paz da ricercare ed inserisco la temperatura
             string nome, cognome;

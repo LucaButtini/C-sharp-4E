@@ -71,7 +71,11 @@ namespace ClinicaRefactored
                 }
             }
         }
-
+        public List<Paziente> Febbre()
+        {
+            List<Paziente> pf = pazienti.FindAll(p => p.GetTemperatura() > 36);
+            return pf;
+        }
         // Resetta l'indice dei pazienti a -1, posizionandolo all'inizio della lista.
         public void ResetPaziente()
         {
