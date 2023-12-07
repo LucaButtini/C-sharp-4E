@@ -89,6 +89,10 @@ namespace ClinicaRefactored
             return ++_index < pazienti.Count;
         }
 
+        public bool MoveBefore()
+        {
+            return --_index < pazienti.Count;
+        }
         // Restituisce il paziente corrente in base all'indice attuale.
         public Paziente PazienteCorrente()
         {
