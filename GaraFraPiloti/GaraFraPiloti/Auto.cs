@@ -10,6 +10,7 @@ namespace GaraFraPiloti
     {
         string _scuderia;
         Pilota _mioPilota;
+        double _tempoInGara;
         public Auto(string scuderia, Pilota mioPilota)
         {
             _scuderia = scuderia;
@@ -23,6 +24,16 @@ namespace GaraFraPiloti
         {
             get { return _scuderia; }
             set { _scuderia = value; }
+        }
+        public double TempoInGara
+        {
+            get { return _tempoInGara; }
+            set { _tempoInGara = value; }
+        }
+        public Pilota MioPilota
+        {
+            get { return _mioPilota; }
+            set { _mioPilota = value; }
         }
     }
 }

@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 
 namespace GaraFraPiloti
 {
-    //la gara è fatta da un nome, da un risultato, griglia di auto, numero di scuderie
-    //fai la classe gara che la griglia di auto ed è definita da scuderie 
+
     internal class Gara
     {
         string _nomeGara;
@@ -20,22 +19,6 @@ namespace GaraFraPiloti
             _numScuderia = n;
             Circuito = nome;
         }
-        //public void SetGara(string circuito)
-        //{
-        //    _nomeGara = circuito;
-        //}
-        //public string GetGara()
-        //{
-        //    return _nomeGara;
-        //}
-        //public void SetNumScuderia(int numScuderia)
-        //{
-        //    _numScuderia = numScuderia;
-        //}
-        //public int GetNumScuderia()
-        //{
-        //    return _numScuderia;
-        //}
         public string Circuito
         {
             get { return _nomeGara; }
@@ -65,5 +48,35 @@ namespace GaraFraPiloti
             return partecipanti.Count;
 
         }
+        public void SimulaGara()
+        {
+            Random random = new Random();
+            Pilota p;
+            foreach (Auto auto in partecipanti)
+            {
+                double tempo = random.NextDouble() * 100; // Modifica questo valore in base alla simulazione del tempo di gara
+                auto.TempoInGara = tempo;
+
+                p = auto.MioPilota;
+
+                int numeroGara = partecipanti.IndexOf(auto) + 1;
+                Console.WriteLine($"Pilota [{numeroGara}]: {p.Stampa()}, Tempo: {tempo} secondi");
+            }
+        }
+        public void Classifica()
+        {
+            List<Auto> classifica = new List<Auto>(partecipanti);
+            classifica.Sort((auto1, auto2) => auto1.TempoInGara.CompareTo(auto2.TempoInGara));
+
+            int pos = 1;
+
+            foreach (Auto auto in classifica)
+            {
+
+                Console.WriteLine("{0}. {1} {2} - Tempo: {3} secondi", pos, auto.MioPilota.Cognome, auto.MioPilota.Nome, auto.TempoInGara);
+                pos++;
+            }
+        }
+
     }
 }

@@ -34,8 +34,6 @@ namespace GaraFraPiloti
                             Console.WriteLine("Circuito al completo");
                         break;
                     case 2:
-                        //Console.WriteLine("Visualizza");
-                        //Console.WriteLine("==={0}===", gara.Circuito);
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("========================================");
                         Console.WriteLine("GARA: [{0}], PARTECIPANTI: [{1}]", gara.Circuito, gara.NumPiloti());
@@ -44,10 +42,19 @@ namespace GaraFraPiloti
                         gara.Griglia();
                         break;
                     case 3:
-                        Console.WriteLine("Vincitore");
-                        Console.WriteLine("Vincitore gara [{0}]", gara.Circuito);
-                        gara.GetVincitore();
+                        gara.SimulaGara();
+                        Console.ForegroundColor = ConsoleColor.DarkCyan;
+                        Console.WriteLine("========================================");
+                        Console.WriteLine("CLASSIFICA FINALE - GARA: [{0}]", gara.Circuito);
+                        gara.Classifica();
+                        Console.WriteLine("========================================");
+                        Console.ForegroundColor = ConsoleColor.White;
+
                         break;
+
+                    //Console.WriteLine("Vincitore");
+                    //Console.WriteLine("Vincitore gara [{0}]", gara.Circuito);
+                    //gara.GetVincitore();
                     case 4:
                         Console.WriteLine("Fine");
                         break;
@@ -65,7 +72,7 @@ namespace GaraFraPiloti
         }
         static void Inserimento(Gara g)
         {
-            Pilota p = new Pilota(" ", " ");
+            Pilota p = new Pilota(0, " ", " ");
             Auto a = new Auto(" ", p);
             Console.Write("Inserisci nome pilota: ");
             p.Nome = Console.ReadLine();
