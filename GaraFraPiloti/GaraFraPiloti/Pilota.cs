@@ -11,29 +11,23 @@ namespace GaraFraPiloti
         string _nome, _cognome;
         public Pilota(string nome, string cognome)
         {
-            SetNome(nome);
-            SetCognome(cognome);
+            Nome = nome;
+            Cognome = cognome;
         }
 
-        private void SetNome(string nome)
+        public string Nome
         {
-            _nome = nome;
+            get { return _nome; }
+            set { _nome = value; }
         }
-        private void SetCognome(string cognome)
+        public string Cognome
         {
-            _cognome = cognome;
-        }
-        public string GetNome()
-        {
-            return _nome;
-        }
-        public string GetCognome()
-        {
-            return _cognome;
+            get { return _cognome; }
+            set { _cognome = value; }
         }
         public string Stampa()
         {
-            return string.Format($"COGNOME: {GetCognome()}, NOME: {GetNome()}");
+            return string.Format($"COGNOME: [{Cognome}], NOME: [{Nome}]");
         }
     }
 }

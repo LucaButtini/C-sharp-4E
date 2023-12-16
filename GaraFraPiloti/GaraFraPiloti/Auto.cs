@@ -15,18 +15,14 @@ namespace GaraFraPiloti
             _scuderia = scuderia;
             _mioPilota = mioPilota;
         }
-
-        public void SetScuderia(string scuderia)
+        public override string ToString()
         {
-            _scuderia = scuderia;
+            return string.Format($"SCUDERIA: [{Scuderia}], {_mioPilota.Stampa()}");
         }
-        public string GetScuderia()
+        public string Scuderia
         {
-            return _scuderia;
-        }
-        public string Stampa()
-        {
-            return string.Format($"SCUDERIA: {GetScuderia()}, {_mioPilota.Stampa()}");
+            get { return _scuderia; }
+            set { _scuderia = value; }
         }
     }
 }
