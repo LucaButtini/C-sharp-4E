@@ -39,7 +39,7 @@ namespace RipassoInItinere
         }
         public override string ToString()
         {
-            return string.Format($"CODICE: [{Codice}],TARGA: [{Targa}],  MARCA: [{Marca}], MODELLO:[{Modello}], NUMERO POSTI: [{Posti}]");
+            return string.Format($"CODICE: [{Codice}],  TARGA: [{Targa}],  MARCA: [{Marca}], MODELLO:[{Modello}], NUMERO POSTI: [{Posti}]");
         }
     }
 }

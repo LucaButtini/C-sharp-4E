@@ -492,10 +492,8 @@ namespace AnagCsvRefactored
         static int CalcolaAnni(DateTime dataNascita, DateTime dataCorrente)
         {
             int eta = dataCorrente.Year - dataNascita.Year;
-
             if (dataCorrente < dataNascita.AddYears(eta))
                 eta--;
-
             return eta;
         }
 

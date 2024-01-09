@@ -36,5 +36,19 @@ namespace RipassoInItinere
         {
             parcoVeicoli.ForEach(v => Console.WriteLine(v));
         }
+        public int Disponibili(string marca)
+        {
+            return parcoVeicoli.Count(v => v.Marca == marca);
+        }
+        public Veicolo Ricerca(int code, string targa)
+        {
+            return parcoVeicoli.Find(v => v.Codice == code || v.Targa == targa);
+        }
+        public int Elimina(int code, string targa)
+        {
+            //RemoveAll per rimuovere gli elementi che soddisfano la condizione
+            return parcoVeicoli.RemoveAll(v => v.Codice == code || v.Targa == targa);
+        }
+
     }
 }
