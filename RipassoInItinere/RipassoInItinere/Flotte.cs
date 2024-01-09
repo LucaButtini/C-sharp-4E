@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Net.Http.Headers;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,9 +13,10 @@ namespace RipassoInItinere
     {
         string nome, autorizzazione;
         List<Veicolo> parcoVeicoli;
-        public Flotte()
+        public Flotte(string nome)
         {
             parcoVeicoli = new List<Veicolo>();
+            nome = Nome;
         }
         public string Nome
         {
@@ -28,6 +31,10 @@ namespace RipassoInItinere
         public void Aggiungi(Veicolo v)
         {
             parcoVeicoli.Add(v);
+        }
+        public void Stampa()
+        {
+            parcoVeicoli.ForEach(v => Console.WriteLine(v));
         }
     }
 }

@@ -11,8 +11,12 @@ namespace RipassoInItinere
     {
         string marca, targa, modello;
         int codice;
-        //numeroPosti posti;
-
+        numeroPosti posti;
+        public numeroPosti Posti
+        {
+            get { return posti; }
+            set { posti = value; }
+        }
         public string Targa
         {
             get { return targa; }
@@ -32,6 +36,10 @@ namespace RipassoInItinere
         {
             get { return modello; }
             set { modello = value; }
+        }
+        public override string ToString()
+        {
+            return string.Format($"CODICE: [{Codice}],TARGA: [{Targa}],  MARCA: [{Marca}], MODELLO:[{Modello}], NUMERO POSTI: [{Posti}]");
         }
     }
 }
