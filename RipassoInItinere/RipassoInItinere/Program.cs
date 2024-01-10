@@ -18,7 +18,6 @@ namespace RipassoInItinere
             flotta.Autorizzazione = autorizzazione.GeneraAutorizzazione();
             int choice = 0, code = 1, temp = 0, disp = 0;
             string t = " ";
-            numeroPosti p = new numeroPosti();
             string[] opzioni = { "Inserimento", "Visualizza", "Elimina", "Ricerca", "Veicoli disponibili", "Ricerca posti", "Esci" };
             do
             {
@@ -38,18 +37,8 @@ namespace RipassoInItinere
                         break;
                     case 3:
 
-                        Console.WriteLine("===Elimina===\n");
-                        //Search(temp, choice, t);
-                        Console.WriteLine("[1] Targa");
-                        Console.WriteLine("[2] Codice");
-                        Console.Write("Con cosa vuoi effetturare la ricerca? -> ");
-                        int.TryParse(Console.ReadLine(), out choice);
-                        while (choice < 1 || choice > 2)
-                        {
-                            Console.WriteLine("Inserisci un opzione valida");
-                            int.TryParse(Console.ReadLine(), out choice);
-                        }
-                        if (choice == 1)
+                        Console.WriteLine("===Elimina===");
+                        if (Search() == 1)
                         {
                             Console.Write("Inserisci la targa del veicolo da ricercare: ");
                             t = Console.ReadLine();
@@ -65,23 +54,14 @@ namespace RipassoInItinere
                     case 4:
 
                         Console.WriteLine("===Ricerca===");
-                        Console.WriteLine("[1] Targa");
-                        Console.WriteLine("[2] Codice");
-                        Console.Write("Con cosa vuoi effetturare la ricerca? -> ");
-                        int.TryParse(Console.ReadLine(), out choice);
-                        while (choice < 1 || choice > 2)
+                        if (Search() == 1)
                         {
-                            Console.WriteLine("Inserisci un opzione valida");
-                            int.TryParse(Console.ReadLine(), out choice);
-                        }
-                        if (choice == 1)
-                        {
-                            Console.Write("Inserisci la targa del veicolo da ricercare: ");
+                            Console.Write("Inserisci la targa del veicolo da eliminare: ");
                             t = Console.ReadLine();
                         }
                         else
                         {
-                            Console.Write("Inserisci codice del veicolo da ricercare: ");
+                            Console.Write("Inserisci codice del veicolo da eliminare: ");
                             int.TryParse(Console.ReadLine(), out temp);
                         }
                         //Search(temp, choice, t);
@@ -101,10 +81,6 @@ namespace RipassoInItinere
                         Console.Write("Inserisci marca veicoli da ricercare: ");
                         t = Console.ReadLine();
                         Console.WriteLine("MARCA: {0}, DISPONIBILITA': {1} elementi", t, flotta.Disponibili(t));
-                        //for (int i = 1; i < code; i++)
-                        //{
-                        //    Console.WriteLine("MARCA: {0}, DISPONIBILITA': {1} elementi", t, flotta.Disponibili(t));
-                        //}
                         break;
                     case 6:
                         Console.WriteLine("===Numero veicoli per posti===");
@@ -200,8 +176,9 @@ namespace RipassoInItinere
             sw.WriteLine(DateTime.Now.ToString() + " " + stringa);
             sw.Close();
         }
-        /*static void Search(int temp, int choice, string t)
+        static int Search()
         {
+            int choice;
             Console.WriteLine("[1] Targa");
             Console.WriteLine("[2] Codice");
             Console.Write("Con cosa vuoi effetturare la ricerca? -> ");
@@ -211,17 +188,8 @@ namespace RipassoInItinere
                 Console.WriteLine("Inserisci un opzione valida");
                 int.TryParse(Console.ReadLine(), out choice);
             }
-            if (choice == 1)
-            {
-                Console.Write("Inserisci la targa del veicolo da ricercare: ");
-                t = Console.ReadLine();
-            }
-            else
-            {
-                Console.Write("Inserisci codice del veicolo da ricercare: ");
-                int.TryParse(Console.ReadLine(), out temp);
-            }
-        }*/
+            return choice;
+        }
 
     }
 }
