@@ -16,9 +16,10 @@ namespace RipassoInItinere
             Flotte flotta = new Flotte("FLOTTA");
             Governo autorizzazione = new Governo();
             flotta.Autorizzazione = autorizzazione.GeneraAutorizzazione();
-            int choice = 0, code = 1, temp = 0;
+            int choice = 0, code = 1, temp = 0, disp = 0;
             string t = " ";
-            string[] opzioni = { "Inserimento", "Visualizza", "Elimina", "Ricerca", "Veicoli disponibili", "Esci" };
+            numeroPosti p = new numeroPosti();
+            string[] opzioni = { "Inserimento", "Visualizza", "Elimina", "Ricerca", "Veicoli disponibili", "Ricerca posti", "Esci" };
             do
             {
                 Menu(opzioni);
@@ -62,6 +63,7 @@ namespace RipassoInItinere
                             Console.WriteLine("Nessun elemento presente con questa targa o codice");
                         break;
                     case 4:
+
                         Console.WriteLine("===Ricerca===");
                         Console.WriteLine("[1] Targa");
                         Console.WriteLine("[2] Codice");
@@ -96,21 +98,46 @@ namespace RipassoInItinere
                         break;
                     case 5:
                         Console.WriteLine("===Veicoli disponibili===");
-                        Console.WriteLine("Inserisci marca veicoli da ricercare");
+                        Console.Write("Inserisci marca veicoli da ricercare: ");
                         t = Console.ReadLine();
                         Console.WriteLine("MARCA: {0}, DISPONIBILITA': {1} elementi", t, flotta.Disponibili(t));
+                        //for (int i = 1; i < code; i++)
+                        //{
+                        //    Console.WriteLine("MARCA: {0}, DISPONIBILITA': {1} elementi", t, flotta.Disponibili(t));
+                        //}
                         break;
                     case 6:
+                        Console.WriteLine("===Numero veicoli per posti===");
+                        Console.WriteLine("Inserisci il numero di posti:");
+
+                        switch (SceltaPosti())
+                        {
+                            case 1:
+                                disp = flotta.RicercaPosti(numeroPosti.due_posti);
+                                break;
+                            case 2:
+                                disp = flotta.RicercaPosti(numeroPosti.quattro_posti);
+                                break;
+                            case 3:
+                                disp = flotta.RicercaPosti(numeroPosti.cinque_posti);
+                                break;
+                            case 4:
+                                disp = flotta.RicercaPosti(numeroPosti.otto_posti);
+                                break;
+                        }
+                        Console.WriteLine("Veicoli disponibili {0}", disp);
+                        break;
+                    case 7:
                         Console.WriteLine("Fine");
                         break;
                 }
-                if (choice != 6)
+                if (choice != 7)
                 {
                     Console.WriteLine("Premi invio per uscire");
                     Console.ReadLine();
                     Console.Clear();
                 }
-            } while (choice != 6);
+            } while (choice != 7);
         }
 
         static int SceltaPosti()
@@ -171,7 +198,6 @@ namespace RipassoInItinere
         {
             StreamWriter sw = File.AppendText(path);
             sw.WriteLine(DateTime.Now.ToString() + " " + stringa);
-
             sw.Close();
         }
         /*static void Search(int temp, int choice, string t)
