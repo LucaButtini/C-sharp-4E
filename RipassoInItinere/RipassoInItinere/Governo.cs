@@ -8,8 +8,7 @@ namespace RipassoInItinere
 {
     internal static class Governo
     {
-        
-       static public string GeneraAutorizzazione()
+        static public string GeneraAutorizzazione()
         {
             Random random = new Random();
             int n;

@@ -14,7 +14,6 @@ namespace RipassoInItinere
         {
             Console.Title = "Autonoleggio";
             Flotte flotta = new Flotte("FLOTTA");
-
             flotta.Autorizzazione = Governo.GeneraAutorizzazione();
             int choice = 0, temp = 0, disponibili = 0;
             string t = " ";
@@ -132,6 +131,7 @@ namespace RipassoInItinere
             }
             return scelta;
         }
+
         static void Inserimento(Flotte f)
         {
             Veicolo v = new Veicolo();
@@ -168,12 +168,14 @@ namespace RipassoInItinere
                 Console.WriteLine("[{0}] {1}", i + 1, opt[i]);
             }
         }
+
         static void ScriviFile(string path, string stringa)
         {
             StreamWriter sw = File.AppendText(path);
             sw.WriteLine(DateTime.Now.ToString() + " " + stringa);
             sw.Close();
         }
+
         static int Search()
         {
             int choice;
@@ -188,6 +190,5 @@ namespace RipassoInItinere
             }
             return choice;
         }
-
     }
 }
