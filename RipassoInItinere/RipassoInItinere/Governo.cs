@@ -6,24 +6,14 @@ using System.Threading.Tasks;
 
 namespace RipassoInItinere
 {
-    internal class Governo
+    internal static class Governo
     {
-        string targa, autorizzazione;
-        public string Ta
-        {
-            get { return targa; }
-            set { targa = value; }
-        }
-        public string Autorizzazione
-        {
-            get { return autorizzazione; }
-            set { autorizzazione = value; }
-        }
-        public string GeneraAutorizzazione()
+        
+       static public string GeneraAutorizzazione()
         {
             Random random = new Random();
             int n;
-            string temp = "";
+            string temp = "", autorizzazione;
             char c;
             // Genera 5 numeri casuali
             for (int i = 0; i < 5; i++)
@@ -32,17 +22,17 @@ namespace RipassoInItinere
                 temp += Convert.ToString(n);
             }
             // vocale casuale
-            n = random.Next(65, 91); 
+            n = random.Next(65, 91);
             c = Convert.ToChar(n);
             temp += c;
             autorizzazione = temp;
             return autorizzazione;
         }
-        public string GeneraTarga()
+        static public string GeneraTarga()
         {
             Random random = new Random();
             int l;
-            string s1 = "", s2 = "", s3;
+            string s1 = "", s2 = "", s3, targa;
             char z1, z2;//per formare la stringa
             for (int i = 0; i < 2; i++)//genero le prime due lettere
             {

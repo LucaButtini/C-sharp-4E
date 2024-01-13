@@ -38,27 +38,8 @@ namespace RipassoInItinere
         }
         public int RicercaPosti(numeroPosti posti)
         {
-            List<Veicolo> postiLista = parcoVeicoli.FindAll(p => p.Posti == posti);
-            int ciclo = 0;
-            foreach (Veicolo a in postiLista)
-            {
-                ciclo++;
-            }
-            return ciclo;
+            return parcoVeicoli.Count(v => v.Posti == posti);
         }
-        //public int InventarioPerMarca()
-        //{
-        //    // Ottenere un elenco distintivo delle marche
-        //    var marcheDistinte = parcoVeicoli.Select(v => v.Marca).Distinct();
-
-        //    Console.WriteLine("Inventario per marca:");
-
-        //    foreach (var marca in marcheDistinte)
-        //    {
-        //        // Contare il numero di veicoli con la marca corrente
-        //        return parcoVeicoli.Count(v => v.Marca == marca);
-        //    }
-        //}
 
         public int Disponibili(string marca)
         {

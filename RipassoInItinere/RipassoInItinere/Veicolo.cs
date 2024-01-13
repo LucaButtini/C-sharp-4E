@@ -10,8 +10,24 @@ namespace RipassoInItinere
     internal class Veicolo
     {
         string marca, targa, modello;
-        int codice;
+        int codiceVeicolo;
+        static int codice;
         numeroPosti posti;
+        public Veicolo()
+        {
+            codice++;
+            codiceVeicolo = codice;
+        }
+        static public int Code
+        {
+            get { return codice; }
+            set { codice = value; }
+        }
+        public int Codice
+        {
+            get { return codiceVeicolo; }
+            set { codiceVeicolo = value; }
+        }
         public numeroPosti Posti
         {
             get { return posti; }
@@ -22,11 +38,7 @@ namespace RipassoInItinere
             get { return targa; }
             set { targa = value; }
         }
-        public int Codice
-        {
-            get { return codice; }
-            set { codice = value; }
-        }
+
         public string Marca
         {
             get { return marca; }
