@@ -13,38 +13,43 @@ namespace RipassoInItinere
         static void Main(string[] args)
         {
             Console.Title = "Autonoleggio";
-            Flotte flotta = new Flotte("FLOTTA");
+            Flotte flotta = new Flotte("FLOTTA 1");
             flotta.Autorizzazione = Governo.GeneraAutorizzazione();
             int choice = 0, temp = 0, disponibili = 0;
             string t = " ";
             string[] opzioni = { "Inserimento", "Visualizza", "Elimina", "Ricerca", "Veicoli disponibili", "Ricerca posti", "Esci" };
+            string[] posti = Enum.GetNames(typeof(numeroPosti));
             do
             {
-                Menu(opzioni);
+                StampaMenu(opzioni);
                 Console.WriteLine("Che scelta vuoi fare?");
                 int.TryParse(Console.ReadLine(), out choice);
                 switch (choice)
                 {
                     case 1:
                         Console.WriteLine("===Inserimento===");
-                        Inserimento(flotta);
+                        Inserimento(flotta, posti);
                         break;
                     case 2:
                         Console.WriteLine("===Visualizza===");
+                        Console.WriteLine("[{0}]", flotta.Nome);
                         Console.WriteLine("Autorizzazione Statale: [{0}]", flotta.Autorizzazione);
                         flotta.Stampa();
                         break;
                     case 3:
 
                         Console.WriteLine("===Elimina===");
-                        if (Search() == 1)
+                        Console.WriteLine("[1] Targa");
+                        Console.WriteLine("[2] Codice");
+                        Console.Write("Con cosa vuoi effetturare la ricerca? -> ");
+                        if (Search(0) == 1)
                         {
-                            Console.Write("Inserisci la targa del veicolo da ricercare: ");
+                            Console.Write("Inserisci la targa del veicolo da eliminare: ");
                             t = Console.ReadLine();
                         }
                         else
                         {
-                            Console.Write("Inserisci codice del veicolo da ricercare: ");
+                            Console.Write("Inserisci codice del veicolo da eliminare: ");
                             int.TryParse(Console.ReadLine(), out temp);
                         }
                         if (flotta.Elimina(temp, t) == 0)
@@ -53,14 +58,17 @@ namespace RipassoInItinere
                     case 4:
 
                         Console.WriteLine("===Ricerca===");
-                        if (Search() == 1)
+                        Console.WriteLine("[1] Targa");
+                        Console.WriteLine("[2] Codice");
+                        Console.Write("Con cosa vuoi effetturare la ricerca? -> ");
+                        if (Search(0) == 1)
                         {
-                            Console.Write("Inserisci la targa del veicolo da eliminare: ");
+                            Console.Write("Inserisci la targa del veicolo da ricercare: ");
                             t = Console.ReadLine();
                         }
                         else
                         {
-                            Console.Write("Inserisci codice del veicolo da eliminare: ");
+                            Console.Write("Inserisci codice del veicolo da ricercare: ");
                             int.TryParse(Console.ReadLine(), out temp);
                         }
                         Veicolo veicoloRicercato = flotta.Ricerca(temp, t);
@@ -83,8 +91,8 @@ namespace RipassoInItinere
                     case 6:
                         Console.WriteLine("===Numero veicoli per posti===");
                         Console.WriteLine("Inserisci il numero di posti:");
-
-                        switch (SceltaPosti())
+                        StampaMenu(posti);
+                        switch (Search(posti.Length))
                         {
                             case 1:
                                 disponibili = flotta.RicercaPosti(numeroPosti.due_posti);
@@ -114,54 +122,47 @@ namespace RipassoInItinere
             } while (choice != 7);
         }
 
-        static int SceltaPosti()
+        static void Inserimento(Flotte f, string[] posti)
         {
-            int scelta = 0;
-            string[] posti = Enum.GetNames(typeof(numeroPosti));
-            for (int i = 0; i < posti.Length; i++)
-            {
-                Console.WriteLine($"[{i + 1}] {posti[i]}");
-            }
-            Console.WriteLine("Che scelta vuoi fare");
-            int.TryParse(Console.ReadLine(), out scelta);
-            while (scelta < 1 || scelta > posti.Length)
-            {
-                Console.WriteLine("Inserisci un opzione valida");
-                int.TryParse(Console.ReadLine(), out scelta);
-            }
-            return scelta;
-        }
-
-        static void Inserimento(Flotte f)
-        {
-            Veicolo v = new Veicolo();
-            v.Targa = Governo.GeneraTarga();
+            Veicolo v;
+            string targa = Governo.GeneraTarga();
             Console.Write("Inserisci marca: ");
-            v.Marca = Console.ReadLine();
+            string marca = Console.ReadLine();
             Console.Write("Inserisci modello: ");
-            v.Modello = Console.ReadLine();
+            string modello = Console.ReadLine();
             Console.WriteLine("Inserisci il numero di posti:");
-            switch (SceltaPosti())
+            numeroPosti nPosti = new numeroPosti();
+            StampaMenu(posti);
+            switch (Search(posti.Length))
             {
                 case 1:
-                    v.Posti = numeroPosti.due_posti;
+                    nPosti = numeroPosti.due_posti;
                     break;
                 case 2:
-                    v.Posti = numeroPosti.quattro_posti;
+                    nPosti = numeroPosti.quattro_posti;
                     break;
                 case 3:
-                    v.Posti = numeroPosti.cinque_posti;
+                    nPosti = numeroPosti.cinque_posti;
                     break;
                 case 4:
-                    v.Posti = numeroPosti.otto_posti;
+                    nPosti = numeroPosti.otto_posti;
                     break;
             }
-            v.Codice = Veicolo.Code;
+            int codice = Veicolo.Code;
+            try
+            {
+                v = new Veicolo(marca, modello, nPosti, targa, codice);
+            }
+            catch (Exception ex)
+            {
+                v = null;
+                Console.WriteLine(ex.Message);
+            }
             f.Aggiungi(v);
             ScriviFile(Path.Combine(Environment.CurrentDirectory, "logbin", "log.txt"), v.ToString());
         }
 
-        static void Menu(string[] opt)
+        static void StampaMenu(string[] opt)
         {
             for (int i = 0; i < opt.Length; i++)
             {
@@ -176,14 +177,12 @@ namespace RipassoInItinere
             sw.Close();
         }
 
-        static int Search()
+        static int Search(int max)
         {
             int choice;
-            Console.WriteLine("[1] Targa");
-            Console.WriteLine("[2] Codice");
-            Console.Write("Con cosa vuoi effetturare la ricerca? -> ");
+
             int.TryParse(Console.ReadLine(), out choice);
-            while (choice < 1 || choice > 2)
+            while (choice < 1 || choice > max)
             {
                 Console.WriteLine("Inserisci un opzione valida");
                 int.TryParse(Console.ReadLine(), out choice);

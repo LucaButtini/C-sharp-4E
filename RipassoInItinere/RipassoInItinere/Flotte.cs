@@ -16,7 +16,7 @@ namespace RipassoInItinere
         public Flotte(string nome)
         {
             parcoVeicoli = new List<Veicolo>();
-            nome = Nome;
+            this.nome = nome;
         }
         public string Nome
         {
@@ -34,7 +34,7 @@ namespace RipassoInItinere
         }
         public void Stampa()
         {
-            parcoVeicoli.ForEach(v => Console.WriteLine(v));
+            parcoVeicoli.ForEach(v => Console.WriteLine(v.ToString()));
         }
         public int RicercaPosti(numeroPosti posti)
         {
@@ -55,6 +55,5 @@ namespace RipassoInItinere
             //RemoveAll per rimuovere gli elementi che soddisfano la condizione
             return parcoVeicoli.RemoveAll(v => v.Codice == code || v.Targa == targa);
         }
-
     }
 }

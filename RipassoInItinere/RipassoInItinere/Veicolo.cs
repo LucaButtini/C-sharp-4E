@@ -13,8 +13,12 @@ namespace RipassoInItinere
         int codiceVeicolo;
         static int codice;
         numeroPosti posti;
-        public Veicolo()
+        public Veicolo(string insMarca, string insModello, numeroPosti insNPosti, string insTarga, int insCodice)
         {
+            Marca = insMarca;
+            Modello = insModello;
+            posti = insNPosti;
+            targa = insTarga;
             codice++;
             codiceVeicolo = codice;
         }
@@ -26,7 +30,18 @@ namespace RipassoInItinere
         public int Codice
         {
             get { return codiceVeicolo; }
-            set { codiceVeicolo = value; }
+            set
+            {
+
+                if (codiceVeicolo > 999)
+                {
+                    throw new Exception("Troppi veicoli");
+                }
+                else
+                {
+                    codice = value;
+                }
+            }
         }
         public numeroPosti Posti
         {
