@@ -28,8 +28,16 @@ namespace RipassoInItinere
                 {
                     case 1:
                         Console.WriteLine("===Inserimento===");
-                        Inserimento(flotta, posti);
+                        Console.Write("Inserisci marca: ");
+                        string marca = Console.ReadLine();
+                        Console.Write("Inserisci modello: ");
+                        string modello = Console.ReadLine();
+                        Console.WriteLine("Inserisci il numero di posti:");
+                        StampaMenu(posti);
+                        int sceltaPosti = Search(posti.Length); 
+                        Inserimento(flotta, marca, modello, (numeroPosti)sceltaPosti);
                         break;
+
                     case 2:
                         Console.WriteLine("===Visualizza===");
                         Console.WriteLine("[{0}]", flotta.Nome);
@@ -122,32 +130,10 @@ namespace RipassoInItinere
             } while (choice != 7);
         }
 
-        static void Inserimento(Flotte f, string[] posti)
+        static void Inserimento(Flotte f, string marca, string modello, numeroPosti nPosti)
         {
             Veicolo v;
             string targa = Governo.GeneraTarga();
-            Console.Write("Inserisci marca: ");
-            string marca = Console.ReadLine();
-            Console.Write("Inserisci modello: ");
-            string modello = Console.ReadLine();
-            Console.WriteLine("Inserisci il numero di posti:");
-            numeroPosti nPosti = new numeroPosti();
-            StampaMenu(posti);
-            switch (Search(posti.Length))
-            {
-                case 1:
-                    nPosti = numeroPosti.due_posti;
-                    break;
-                case 2:
-                    nPosti = numeroPosti.quattro_posti;
-                    break;
-                case 3:
-                    nPosti = numeroPosti.cinque_posti;
-                    break;
-                case 4:
-                    nPosti = numeroPosti.otto_posti;
-                    break;
-            }
             int codice = Veicolo.Code;
             try
             {
@@ -158,9 +144,11 @@ namespace RipassoInItinere
                 v = null;
                 Console.WriteLine(ex.Message);
             }
+
             f.Aggiungi(v);
             ScriviFile(Path.Combine(Environment.CurrentDirectory, "logbin", "log.txt"), v.ToString());
         }
+
 
         static void StampaMenu(string[] opt)
         {
