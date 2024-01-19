@@ -32,12 +32,13 @@ namespace RipassoInItinere
                         string marca = Console.ReadLine();
                         Console.Write("Inserisci modello: ");
                         string modello = Console.ReadLine();
+                        string targa = Governo.GeneraTarga();
+                        int codice = Veicolo.Code;
                         Console.WriteLine("Inserisci il numero di posti:");
                         StampaMenu(posti);
-                        int sceltaPosti = Search(posti.Length); 
-                        Inserimento(flotta, marca, modello, (numeroPosti)sceltaPosti);
+                        int sceltaPosti = Search(posti.Length);
+                        Inserimento(flotta, marca, modello, (numeroPosti)sceltaPosti, codice, targa);
                         break;
-
                     case 2:
                         Console.WriteLine("===Visualizza===");
                         Console.WriteLine("[{0}]", flotta.Nome);
@@ -45,12 +46,11 @@ namespace RipassoInItinere
                         flotta.Stampa();
                         break;
                     case 3:
-
                         Console.WriteLine("===Elimina===");
                         Console.WriteLine("[1] Targa");
                         Console.WriteLine("[2] Codice");
                         Console.Write("Con cosa vuoi effetturare la ricerca? -> ");
-                        if (Search(0) == 1)
+                        if (Search(2) == 1)
                         {
                             Console.Write("Inserisci la targa del veicolo da eliminare: ");
                             t = Console.ReadLine();
@@ -69,7 +69,7 @@ namespace RipassoInItinere
                         Console.WriteLine("[1] Targa");
                         Console.WriteLine("[2] Codice");
                         Console.Write("Con cosa vuoi effetturare la ricerca? -> ");
-                        if (Search(0) == 1)
+                        if (Search(2) == 1)
                         {
                             Console.Write("Inserisci la targa del veicolo da ricercare: ");
                             t = Console.ReadLine();
@@ -130,11 +130,9 @@ namespace RipassoInItinere
             } while (choice != 7);
         }
 
-        static void Inserimento(Flotte f, string marca, string modello, numeroPosti nPosti)
+        static void Inserimento(Flotte f, string marca, string modello, numeroPosti nPosti, int codice, string targa)
         {
             Veicolo v;
-            string targa = Governo.GeneraTarga();
-            int codice = Veicolo.Code;
             try
             {
                 v = new Veicolo(marca, modello, nPosti, targa, codice);
@@ -144,11 +142,9 @@ namespace RipassoInItinere
                 v = null;
                 Console.WriteLine(ex.Message);
             }
-
             f.Aggiungi(v);
             ScriviFile(Path.Combine(Environment.CurrentDirectory, "logbin", "log.txt"), v.ToString());
         }
-
 
         static void StampaMenu(string[] opt)
         {

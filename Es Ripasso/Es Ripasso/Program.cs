@@ -13,7 +13,7 @@ namespace Es_Ripasso
     {
         static void Main(string[] args)
         {
-            Flotta f1 = new Flotta("flotta1", "AAA0"); ;
+            Flotta f1 = new Flotta("flotta1", "AAA0"); 
             Veicolo v1;
             Veicolo v2;
             string t1 = GeneraTarga();

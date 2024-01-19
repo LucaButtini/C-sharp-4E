@@ -28,6 +28,11 @@ namespace RipassoInItinere
             get { return autorizzazione; }
             set { autorizzazione = value; }
         }
+        public List<Veicolo> GetLista()
+        {
+            List<Veicolo> copiaParcoVeicoli = new List<Veicolo>(parcoVeicoli);//incapsulamento, i dati rimangono protetti
+            return copiaParcoVeicoli;
+        }
         public void Aggiungi(Veicolo v)
         {
             parcoVeicoli.Add(v);
@@ -36,6 +41,7 @@ namespace RipassoInItinere
         {
             parcoVeicoli.ForEach(v => Console.WriteLine(v.ToString()));
         }
+
         public int RicercaPosti(numeroPosti posti)
         {
             return parcoVeicoli.Count(v => v.Posti == posti);
@@ -52,7 +58,6 @@ namespace RipassoInItinere
         }
         public int Elimina(int code, string targa)
         {
-            //RemoveAll per rimuovere gli elementi che soddisfano la condizione
             return parcoVeicoli.RemoveAll(v => v.Codice == code || v.Targa == targa);
         }
     }
