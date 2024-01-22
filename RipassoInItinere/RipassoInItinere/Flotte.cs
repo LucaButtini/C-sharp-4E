@@ -13,10 +13,16 @@ namespace RipassoInItinere
     {
         string nome, autorizzazione;
         List<Veicolo> parcoVeicoli;
+        static int codice = 0;
         public Flotte(string nome)
         {
             parcoVeicoli = new List<Veicolo>();
             this.nome = nome;
+
+        }
+        static public int Code
+        {
+            get { return ++codice; }
         }
         public string Nome
         {

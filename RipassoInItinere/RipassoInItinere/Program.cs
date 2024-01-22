@@ -33,11 +33,10 @@ namespace RipassoInItinere
                         Console.Write("Inserisci modello: ");
                         string modello = Console.ReadLine();
                         string targa = Governo.GeneraTarga();
-                        int codice = Veicolo.Code;
                         Console.WriteLine("Inserisci il numero di posti:");
                         StampaMenu(posti);
                         int sceltaPosti = Search(posti.Length);
-                        Inserimento(flotta, marca, modello, (numeroPosti)sceltaPosti, codice, targa);
+                        Inserimento(flotta, marca, modello, (numeroPosti)sceltaPosti, targa);
                         break;
                     case 2:
                         Console.WriteLine("===Visualizza===");
@@ -130,18 +129,19 @@ namespace RipassoInItinere
             } while (choice != 7);
         }
 
-        static void Inserimento(Flotte f, string marca, string modello, numeroPosti nPosti, int codice, string targa)
+        static void Inserimento(Flotte f, string marca, string modello, numeroPosti nPosti, string targa)
         {
             Veicolo v;
             try
             {
-                v = new Veicolo(marca, modello, nPosti, targa, codice);
+                v = new Veicolo(marca, modello, nPosti, targa);
             }
             catch (Exception ex)
             {
                 v = null;
                 Console.WriteLine(ex.Message);
             }
+
             f.Aggiungi(v);
             ScriviFile(Path.Combine(Environment.CurrentDirectory, "logbin", "log.txt"), v.ToString());
         }

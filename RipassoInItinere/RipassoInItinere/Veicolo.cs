@@ -11,21 +11,14 @@ namespace RipassoInItinere
     {
         string marca, targa, modello;
         int codiceVeicolo;
-        static int codice;
         numeroPosti posti;
-        public Veicolo(string insMarca, string insModello, numeroPosti insNPosti, string insTarga, int insCodice)
+        public Veicolo(string insMarca, string insModello, numeroPosti insNPosti, string insTarga)
         {
             Marca = insMarca;
             Modello = insModello;
             posti = insNPosti;
             targa = insTarga;
-            codice++;
-            codiceVeicolo = codice;
-        }
-        static public int Code
-        {
-            get { return codice; }
-            set { codice = value; }
+            codiceVeicolo = Flotte.Code;
         }
         public int Codice
         {
@@ -39,7 +32,7 @@ namespace RipassoInItinere
                 }
                 else
                 {
-                    codice = value;
+                    codiceVeicolo = value;
                 }
             }
         }
