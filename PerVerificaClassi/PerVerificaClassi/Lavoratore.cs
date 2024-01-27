@@ -47,7 +47,7 @@ namespace PerVerificaClassi
             get { return matricola; }
             set
             {
-                if (value > 3)
+                if (matricola > 3)
                 {
                     throw new Exception("TROPPI ELEMENTI NELLA LISTA");
                 }

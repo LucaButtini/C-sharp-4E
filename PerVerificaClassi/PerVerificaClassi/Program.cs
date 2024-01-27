@@ -132,7 +132,7 @@ namespace PerVerificaClassi
         {
             for (int i = 0; i < menu.Length; i++)
             {
-                Console.WriteLine("{0}--> {1}", i + 1, menu[i]);
+                Console.WriteLine("{0}--> {1}", i + 1, menu[i]); 
             }
         }
         static int Scelta(int supDex)
