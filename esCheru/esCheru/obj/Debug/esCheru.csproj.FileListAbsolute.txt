@@ -1,7 +1,0 @@
-C:\Users\Emilio\Desktop\Itis\C#\esCheru\esCheru\obj\Debug\esCheru.csproj.AssemblyReference.cache
-C:\Users\Emilio\Desktop\Itis\C#\esCheru\esCheru\obj\Debug\esCheru.csproj.CoreCompileInputs.cache
-C:\Users\Emilio\Desktop\Itis\C#\esCheru\esCheru\bin\Debug\esCheru.exe.config
-C:\Users\Emilio\Desktop\Itis\C#\esCheru\esCheru\bin\Debug\esCheru.exe
-C:\Users\Emilio\Desktop\Itis\C#\esCheru\esCheru\bin\Debug\esCheru.pdb
-C:\Users\Emilio\Desktop\Itis\C#\esCheru\esCheru\obj\Debug\esCheru.exe
-C:\Users\Emilio\Desktop\Itis\C#\esCheru\esCheru\obj\Debug\esCheru.pdb
