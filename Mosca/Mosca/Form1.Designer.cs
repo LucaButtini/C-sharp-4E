@@ -38,6 +38,7 @@
             this.Ape = new System.Windows.Forms.RadioButton();
             this.Insetti = new System.Windows.Forms.GroupBox();
             this.btn_close = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.area.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Bug)).BeginInit();
             this.Insetti.SuspendLayout();
@@ -52,6 +53,7 @@
             this.area.Name = "area";
             this.area.Size = new System.Drawing.Size(683, 406);
             this.area.TabIndex = 1;
+            this.area.Click += new System.EventHandler(this.area_Click);
             this.area.Paint += new System.Windows.Forms.PaintEventHandler(this.area_Paint);
             // 
             // Bug
@@ -59,7 +61,7 @@
             this.Bug.BackColor = System.Drawing.Color.Transparent;
             this.Bug.Cursor = System.Windows.Forms.Cursors.Cross;
             this.Bug.Image = global::Mosca.Properties.Resources.mosca;
-            this.Bug.Location = new System.Drawing.Point(481, 145);
+            this.Bug.Location = new System.Drawing.Point(469, 154);
             this.Bug.Name = "Bug";
             this.Bug.Size = new System.Drawing.Size(83, 84);
             this.Bug.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -148,22 +150,33 @@
             this.btn_close.UseVisualStyleBackColor = false;
             this.btn_close.Click += new System.EventHandler(this.btn_close_Click);
             // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(12, 418);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(172, 20);
+            this.textBox1.TabIndex = 10;
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.Insetti);
             this.Controls.Add(this.area);
             this.Controls.Add(this.btn_close);
             this.Name = "Form1";
             this.Text = "Tiro_a_Segno";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.area.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.Bug)).EndInit();
             this.Insetti.ResumeLayout(false);
             this.Insetti.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -177,6 +190,7 @@
         private System.Windows.Forms.RadioButton Ape;
         private System.Windows.Forms.GroupBox Insetti;
         private System.Windows.Forms.Button btn_close;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }
 
