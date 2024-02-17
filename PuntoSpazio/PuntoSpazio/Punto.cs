@@ -8,39 +8,23 @@ namespace PuntoSpazio
 {
     internal class Punto
     {
-        int maxWidth, maxHeight, riga, colonna;
-        int posizioneX, posizioneY;
-        char disegna;
-        ConsoleKey tasto;
-        bool premuto;
-        public Punto(int maxWidth, int maxHeight, int riga, int colonna, char disegna)
+        int _x, _y;
+        public Punto()
         {
-            MaxWidth = maxWidth;
-            MaxHeight = maxHeight;
-            Riga = riga;
-            Colonna = colonna;
-            Disegna = disegna;
-            premuto = true;
+            X = 0;
+            Y = 0;
+        }
+        public Punto(int x, int y)
+        {
+            X = x;
+            Y = y;
         }
 
-        public int MaxHeight { get => maxHeight; set => maxHeight = value; }
-        public int MaxWidth { get => maxWidth; set => maxWidth = value; }
-        public int Riga { get => riga; set => riga = value; }
-        public int Colonna { get => colonna; set => colonna = value; }
-        public char Disegna { get => disegna; set => disegna = value; }
-        public int PosizioneX { get => posizioneX; set => posizioneX = value; }
-        public int PosizioneY { get => posizioneY; set => posizioneY = value; }
-
-        public void SetPunto()
+        public int X { get => _x; private set => _x = value; }
+        public int Y { get => _y; private set => _y = value; }
+        public override string ToString()
         {
-            Console.SetCursorPosition(Riga, Colonna);
-            Console.Write(Disegna);
-
-            Console.SetCursorPosition(Colonna, Riga);
-            if (premuto)
-                Console.Write(Disegna);
-            PosizioneX = Console.CursorLeft;
-            posizioneY = Console.CursorTop;
+            return string.Format("PUNTO: X: [{0}], Y: [{1}]\n", X, Y);
         }
     }
 }

@@ -10,8 +10,17 @@ namespace PuntoSpazio
     {
         static void Main(string[] args)
         {
-            Punto punto = new Punto(Console.WindowWidth, Console.WindowHeight, 0, 0, '.');
-            punto.SetPunto();
+            Punto p = new Punto(50, 21);
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(p.ToString());
+            Console.ForegroundColor = ConsoleColor.White;
+            Quadrato q = new Quadrato(22, 15, p);
+            Parallelogramma pa = new Parallelogramma(35, 10, p, 3);
+            Rettangolo r = new Rettangolo(10, 5, p);
+            Console.WriteLine(r.ToString());
+            Console.WriteLine(q.ToString());
+            Console.WriteLine(pa.ToString());
+
             Console.ReadLine();
         }
 
