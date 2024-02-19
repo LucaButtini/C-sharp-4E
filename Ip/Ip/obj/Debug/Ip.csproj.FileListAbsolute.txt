@@ -1,7 +1,0 @@
-C:\Users\Emilio\Desktop\Itis\C#\Ip\Ip\bin\Debug\Ip.exe.config
-C:\Users\Emilio\Desktop\Itis\C#\Ip\Ip\bin\Debug\Ip.exe
-C:\Users\Emilio\Desktop\Itis\C#\Ip\Ip\bin\Debug\Ip.pdb
-C:\Users\Emilio\Desktop\Itis\C#\Ip\Ip\obj\Debug\Ip.csproj.AssemblyReference.cache
-C:\Users\Emilio\Desktop\Itis\C#\Ip\Ip\obj\Debug\Ip.csproj.CoreCompileInputs.cache
-C:\Users\Emilio\Desktop\Itis\C#\Ip\Ip\obj\Debug\Ip.exe
-C:\Users\Emilio\Desktop\Itis\C#\Ip\Ip\obj\Debug\Ip.pdb

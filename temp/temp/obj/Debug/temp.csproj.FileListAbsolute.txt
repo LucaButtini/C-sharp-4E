@@ -1,7 +1,0 @@
-C:\Users\Emilio\Desktop\Itis\C#\temp\temp\bin\Debug\temp.exe.config
-C:\Users\Emilio\Desktop\Itis\C#\temp\temp\bin\Debug\temp.exe
-C:\Users\Emilio\Desktop\Itis\C#\temp\temp\bin\Debug\temp.pdb
-C:\Users\Emilio\Desktop\Itis\C#\temp\temp\obj\Debug\temp.csproj.AssemblyReference.cache
-C:\Users\Emilio\Desktop\Itis\C#\temp\temp\obj\Debug\temp.csproj.CoreCompileInputs.cache
-C:\Users\Emilio\Desktop\Itis\C#\temp\temp\obj\Debug\temp.exe
-C:\Users\Emilio\Desktop\Itis\C#\temp\temp\obj\Debug\temp.pdb
