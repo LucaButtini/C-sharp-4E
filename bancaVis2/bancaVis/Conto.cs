@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Banca
+namespace bancaVis
 {
     class Conto
     {
@@ -14,20 +14,21 @@ namespace Banca
         int _id;
         public Conto(int id, string nome, string cognome)
         {
+            _id = id;
             _nome = nome;
             _cognome = cognome;
-            _id = id;
             saldo = 10;
         }
 
-        public Conto() : this(1000, "Nessuno", "Nessuno")
-        {
+        //public Conto() : this(1000, "Nessuno", "Nessuno")
+        //{
 
-        }
+        //}
 
-        public int Identifica
+        public int ID
         {
-            get { return _id; }
+            get { return Id; }
+            set { Id = value; }
         }
 
         public string Nome
@@ -46,9 +47,11 @@ namespace Banca
             set { saldo = value; }
         }
 
+        public int Id { get => _id; set => _id = value; }
+
         public override string ToString()
         {
-            return string.Format($"ID conto: {Identifica} | Nome: {Nome} | Cognome: {Cognome} | Saldo: {Saldo}");
+            return string.Format($"ID conto: {_id} | Nome: {Nome} | Cognome: {Cognome} | Saldo: {Saldo}");
         }
 
         public bool Movimento(double mov)
