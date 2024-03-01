@@ -20,5 +20,13 @@ namespace EsStudentiPersone
         {
             return string.Format("Nome: {0}, Cognome: {1}", Nome, Cognome);
         }
+        public static bool operator ==(Persona a, Persona b)
+        {
+            return a._nome == b._nome && a._cognome == b._cognome;
+        }
+        static public bool operator !=(Persona a, Persona b)
+        {
+            return !(a == b);
+        }
     }
 }

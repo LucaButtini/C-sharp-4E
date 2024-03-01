@@ -34,7 +34,11 @@ namespace EsStudentiPersone
             {
                 MessageBox.Show("Inserimento dati non valido o nullo", "Attenzione", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
-            Persona persona = new Persona(textBox1.Name, textBox2.Text);
+            Persona persona = new Persona(textBox1.Text, textBox2.Text);
+            if (anagrafica.Exists(p => p == persona))
+            {
+                MessageBox.Show("Elemento già presente nella lista", "Errore", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
             lstanag.Items.Add(persona.ToString());
             Cancella();
         }
@@ -44,7 +48,11 @@ namespace EsStudentiPersone
             {
                 MessageBox.Show("Inserimento dati non valido o nullo", "Attenzione", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
-            Studente studente = new Studente(textBox1.Name, textBox2.Text);
+            Studente studente = new Studente(textBox1.Text, textBox2.Text);
+            if (anagrafica.Exists(p => p == studente))
+            {
+                MessageBox.Show("Elemento già presente nella lista", "Errore", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
             lstanag.Items.Add(studente.ToString());
             Cancella();
         }
@@ -61,7 +69,6 @@ namespace EsStudentiPersone
             }
             return true;
         }
-
         private void button3_Click(object sender, EventArgs e)
         {
             Close();
