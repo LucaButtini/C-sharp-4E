@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -30,31 +31,50 @@ namespace EsStudentiPersone
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (!CheckInserimento(textBox1.Text) && !CheckInserimento(textBox2.Text))
+            string nome = textBox1.Text;
+            string cognome = textBox2.Text;
+            if (!CheckInserimento(nome) && !CheckInserimento(cognome))
             {
                 MessageBox.Show("Inserimento dati non valido o nullo", "Attenzione", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
             }
             Persona persona = new Persona(textBox1.Text, textBox2.Text);
-            if (anagrafica.Exists(p => p == persona))
+            if (CheckDoppi(nome, cognome))
             {
                 MessageBox.Show("Elemento già presente nella lista", "Errore", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                return;
             }
+            anagrafica.Add(persona);
             lstanag.Items.Add(persona.ToString());
             Cancella();
         }
         private void button2_Click(object sender, EventArgs e)
         {
-            if (!CheckInserimento(textBox1.Text) && !CheckInserimento(textBox2.Text))
+            string nome = textBox1.Text;
+            string cognome = textBox2.Text;
+            if (!CheckInserimento(nome) && !CheckInserimento(cognome))
             {
                 MessageBox.Show("Inserimento dati non valido o nullo", "Attenzione", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
             }
-            Studente studente = new Studente(textBox1.Text, textBox2.Text);
-            if (anagrafica.Exists(p => p == studente))
+            Studente studente = new Studente(nome, cognome);
+            if (CheckDoppi(nome, cognome))
             {
                 MessageBox.Show("Elemento già presente nella lista", "Errore", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                return;
             }
+
+            anagrafica.Add(studente);
             lstanag.Items.Add(studente.ToString());
             Cancella();
+        }
+        private bool CheckDoppi(string nome, string cognome)
+        {
+            if (anagrafica.Any(p => p.Nome == nome && p.Cognome == cognome))
+            {
+                return true;
+            }
+            return false;
         }
         private void Cancella()
         {
@@ -72,6 +92,14 @@ namespace EsStudentiPersone
         private void button3_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (MessageBox.Show("Vuoi uscire dal form?", "Attenzione", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+            {
+                e.Cancel = true;
+            }
         }
     }
 }

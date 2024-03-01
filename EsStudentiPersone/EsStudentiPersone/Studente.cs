@@ -18,7 +18,7 @@ namespace EsStudentiPersone
         public int Matricola { get => _matricola; private set => _matricola = value; }
         public override string ToString()
         {
-            return string.Format("Matricola: {0}, Nome: {1}, Cognome: {2}", Matricola, Nome, Cognome);
+            return string.Format("Matricola: [{0}], Nome: [{1}], Cognome: [{2}]", Matricola, Nome, Cognome);
         }
     }
 }

@@ -43,14 +43,14 @@
             this.lstanag.FormattingEnabled = true;
             this.lstanag.Location = new System.Drawing.Point(46, 181);
             this.lstanag.Name = "lstanag";
-            this.lstanag.Size = new System.Drawing.Size(418, 147);
+            this.lstanag.Size = new System.Drawing.Size(418, 212);
             this.lstanag.TabIndex = 0;
             this.lstanag.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(567, 185);
+            this.label1.Location = new System.Drawing.Point(567, 190);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(74, 13);
             this.label1.TabIndex = 1;
@@ -59,7 +59,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(570, 236);
+            this.label2.Location = new System.Drawing.Point(570, 241);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(92, 13);
             this.label2.TabIndex = 2;
@@ -67,21 +67,21 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(570, 201);
+            this.textBox1.Location = new System.Drawing.Point(570, 206);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(100, 20);
             this.textBox1.TabIndex = 3;
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(570, 252);
+            this.textBox2.Location = new System.Drawing.Point(570, 257);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(100, 20);
             this.textBox2.TabIndex = 4;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(548, 305);
+            this.button1.Location = new System.Drawing.Point(549, 311);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 5;
@@ -91,7 +91,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(645, 305);
+            this.button2.Location = new System.Drawing.Point(646, 311);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 6;
@@ -124,6 +124,7 @@
             this.Controls.Add(this.lstanag);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
