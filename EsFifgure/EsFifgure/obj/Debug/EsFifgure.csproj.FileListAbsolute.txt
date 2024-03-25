@@ -1,7 +1,0 @@
-F:\4E\Luca Buttini\EsFifgure\EsFifgure\obj\Debug\EsFifgure.csproj.AssemblyReference.cache
-F:\4E\Luca Buttini\EsFifgure\EsFifgure\obj\Debug\EsFifgure.csproj.CoreCompileInputs.cache
-F:\4E\Luca Buttini\EsFifgure\EsFifgure\bin\Debug\EsFifgure.exe.config
-F:\4E\Luca Buttini\EsFifgure\EsFifgure\bin\Debug\EsFifgure.exe
-F:\4E\Luca Buttini\EsFifgure\EsFifgure\bin\Debug\EsFifgure.pdb
-F:\4E\Luca Buttini\EsFifgure\EsFifgure\obj\Debug\EsFifgure.exe
-F:\4E\Luca Buttini\EsFifgure\EsFifgure\obj\Debug\EsFifgure.pdb
