@@ -22,7 +22,7 @@ namespace EsFifgure
         }
         public override string ToString()
         {
-            return string.Format($"Lato: {Base}, Area: {CalcoloArea()}, Perimetro: {CalcoloPerimetro()}");
+            return string.Format($"QUADRATO --> Lato: {Base}, Area: {CalcoloArea()}, Perimetro: {CalcoloPerimetro()}");
         }
     }
 }
