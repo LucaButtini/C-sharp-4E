@@ -1,0 +1,7 @@
+F:\4E\Luca Buttini\FigureAstratte\FigureAstratte\bin\Debug\FigureAstratte.exe.config
+F:\4E\Luca Buttini\FigureAstratte\FigureAstratte\bin\Debug\FigureAstratte.exe
+F:\4E\Luca Buttini\FigureAstratte\FigureAstratte\bin\Debug\FigureAstratte.pdb
+F:\4E\Luca Buttini\FigureAstratte\FigureAstratte\obj\Debug\FigureAstratte.csproj.AssemblyReference.cache
+F:\4E\Luca Buttini\FigureAstratte\FigureAstratte\obj\Debug\FigureAstratte.csproj.CoreCompileInputs.cache
+F:\4E\Luca Buttini\FigureAstratte\FigureAstratte\obj\Debug\FigureAstratte.exe
+F:\4E\Luca Buttini\FigureAstratte\FigureAstratte\obj\Debug\FigureAstratte.pdb
