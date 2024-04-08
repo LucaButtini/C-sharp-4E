@@ -21,5 +21,13 @@ namespace ConcessionariaClassiPrepVerifica
         {
             return autonoleggio.ToList();
         }
+        //public void Cancella(int index)
+        //{
+        //    autonoleggio.RemoveAt(index);
+        //}
+        public int Cancella(string marca, string modello)
+        {
+            return autonoleggio.RemoveAll(v => v.Modello == modello || v.Marca == marca);
+        }
     }
 }

@@ -19,8 +19,8 @@ namespace ConcessionariaClassiPrepVerifica
 
         }
 
-        protected string Marca { get => _marca; set => _marca = value; }
-        protected string Modello { get => _modello; set => _modello = value; }
+        public string Marca { get => _marca; set => _marca = value; }
+        public string Modello { get => _modello; set => _modello = value; }
         protected double Km { get => _km; set => _km = value; }
         protected double CostoNoleggio { get => _costoNoleggio; set => _costoNoleggio = value; }
         public abstract string Stampa();
