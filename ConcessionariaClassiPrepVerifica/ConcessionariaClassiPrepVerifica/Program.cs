@@ -33,9 +33,11 @@ namespace ConcessionariaClassiPrepVerifica
             List<Veicolo> list = c.GetLista(); //rispetto incapsulamento
             list.ForEach(v => { Console.WriteLine(v.Stampa()); });
             Console.WriteLine("================================");
-            //list.ForEach(v => { if (v is Moto) { Console.WriteLine(((Moto)v).Targa("vise")); } });
+            list.ForEach(v => { if (v is Moto) { Console.WriteLine(((Moto)v).Targa("vise")); } });
             Console.WriteLine("================================");
+            Console.WriteLine("Inserisci marca");
             string ma = Console.ReadLine();
+            Console.WriteLine("Inserisci modello");
             string mo = Console.ReadLine();
             if (c.Cancella(ma, mo) == 0)
             {

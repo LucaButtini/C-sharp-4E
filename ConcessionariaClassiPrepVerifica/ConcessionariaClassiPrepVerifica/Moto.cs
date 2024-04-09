@@ -16,7 +16,6 @@ namespace ConcessionariaClassiPrepVerifica
             _casco = casco;
             _tempi = tempi;
         }
-
         public int Tempi { get => _tempi; set => _tempi = value; }
         public bool Casco { get => _casco; set => _casco = value; }
         public override double CalcoloCosto()
